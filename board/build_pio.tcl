@@ -2,6 +2,10 @@
 if {$argc!=1} {error "Usage: build_pio.tcl OUTPUT_DIRECTORY"}
 set root [file normalize [file join [file dirname [info script]] ..]]
 set out [file normalize [lindex $argv 0]]
+set clock_profile direct
+if {[info exists ::env(FK_PIO_CLOCK_PROFILE)]} {set clock_profile $::env(FK_PIO_CLOCK_PROFILE)}
+if {$clock_profile ni {direct ps100_pl50}} {error "PIO_UNKNOWN_CLOCK_PROFILE"}
+if {$clock_profile ne "direct" && [info exists ::env(FK_PIO_RESUME_PROJECT)]} {error "PIO_CLOCK_PROFILE_REQUIRES_FRESH_PROJECT"}
 if {[info exists ::env(FK_PIO_RESUME_PROJECT)]} {
     set project [file normalize $::env(FK_PIO_RESUME_PROJECT)]
     if {![file isfile $project]} {error "PIO_RESUME_PROJECT_MISSING"}
@@ -40,10 +44,12 @@ update_compile_order -fileset sources_1
 create_bd_design system
 set ps [create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.4 ps]
 apply_bd_automation -rule xilinx.com:bd_rule:zynq_ultra_ps_e -config {apply_board_preset "1"} $ps
+set requested_ps_mhz 55
+if {$clock_profile eq "ps100_pl50"} {set requested_ps_mhz 100}
 set_property -dict [list CONFIG.PSU__USE__M_AXI_GP0 {1} \
     CONFIG.PSU__USE__M_AXI_GP1 {0} CONFIG.PSU__USE__M_AXI_GP2 {0} \
     CONFIG.PSU__USE__S_AXI_GP2 {0} CONFIG.PSU__USE__IRQ0 {0} \
-    CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ {55}] $ps
+    CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ $requested_ps_mhz] $ps
 set ctrl [create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 control]
 set_property -dict [list CONFIG.NUM_SI {1} CONFIG.NUM_MI {1}] $ctrl
 set reset [create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 reset]
@@ -51,13 +57,26 @@ set ip [create_bd_cell -type module -reference frodokem_pio_bd_bridge accelerato
 if {[llength [get_bd_intf_pins accelerator/s_axi]]!=1} {error "PIO_INTERFACE_INFERENCE_FAILED"}
 connect_bd_intf_net [get_bd_intf_pins ps/M_AXI_HPM0_FPD] [get_bd_intf_pins control/S00_AXI]
 connect_bd_intf_net [get_bd_intf_pins control/M00_AXI] [get_bd_intf_pins accelerator/s_axi]
-connect_bd_net [get_bd_pins ps/pl_clk0] [get_bd_pins accelerator/clk] \
+set fabric_clock [get_bd_pins ps/pl_clk0]
+if {$clock_profile eq "ps100_pl50"} {
+    set wiz [create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 fabric_clock]
+    set_property -dict [list CONFIG.PRIM_IN_FREQ {100.000} \
+        CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50.000} CONFIG.USE_RESET {false} \
+        CONFIG.USE_LOCKED {true}] $wiz
+    connect_bd_net [get_bd_pins ps/pl_clk0] [get_bd_pins fabric_clock/clk_in1]
+    set fabric_clock [get_bd_pins fabric_clock/clk_out1]
+}
+connect_bd_net $fabric_clock [get_bd_pins accelerator/clk] \
     [get_bd_pins control/aclk] [get_bd_pins reset/slowest_sync_clk] [get_bd_pins ps/maxihpm0_fpd_aclk]
 connect_bd_net [get_bd_pins ps/pl_resetn0] [get_bd_pins reset/ext_reset_in]
 connect_bd_net [get_bd_pins reset/peripheral_aresetn] [get_bd_pins accelerator/aresetn] [get_bd_pins control/aresetn]
-set one [create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 clock_locked]
-set_property CONFIG.CONST_VAL 1 $one
-connect_bd_net [get_bd_pins clock_locked/dout] [get_bd_pins reset/dcm_locked]
+if {$clock_profile eq "ps100_pl50"} {
+    connect_bd_net [get_bd_pins fabric_clock/locked] [get_bd_pins reset/dcm_locked]
+} else {
+    set one [create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 clock_locked]
+    set_property CONFIG.CONST_VAL 1 $one
+    connect_bd_net [get_bd_pins clock_locked/dout] [get_bd_pins reset/dcm_locked]
+}
 assign_bd_address
 set segment [get_bd_addr_segs -of_objects [get_bd_addr_spaces ps/Data] -filter {NAME =~ *accelerator*}]
 if {[llength $segment]!=1} {error "PIO_ADDRESS_SEGMENT_NOT_UNIQUE"}
@@ -71,7 +90,7 @@ update_compile_order -fileset sources_1
 write_bd_tcl [file join $out recreate_bd.tcl]
 set manifest [open [file join $out PLATFORM_MANIFEST.txt] w]
 puts $manifest "BOARD_PART=$board\nPART=$part\nTOOL=[version -short]\nTRANSPORT=AXI_LITE_PIO\nBASE=0xA0000000"
-puts $manifest "REQUESTED_PL_CLOCK_MHZ=55\nACTUAL_PL_CLOCK_HZ=[get_property CONFIG.FREQ_HZ [get_bd_pins ps/pl_clk0]]"
+puts $manifest "CLOCK_PROFILE=$clock_profile\nREQUESTED_PS_CLOCK_MHZ=$requested_ps_mhz\nACTUAL_PS_CLOCK_HZ=[get_property CONFIG.FREQ_HZ [get_bd_pins ps/pl_clk0]]\nFABRIC_CLOCK_HZ=[get_property CONFIG.FREQ_HZ $fabric_clock]"
 close $manifest
 }
 set_param general.maxThreads 4
