@@ -27,3 +27,11 @@ Acceptance before deployment:
 Risks: live PS reset configuration, actual input clock and UIO ownership must
 still match. Clock lock alone does not prove arithmetic or board correctness.
 No Linux clock, device-tree or PS register mutation is performed by this build.
+
+First build stopped during BD validation, before synthesis: BD 41-238 reported
+100,000,000 Hz at the explicitly configured Wizard input versus 99,999,001 Hz
+at the preset PS output. Host tests and source checks passed. The repair leaves
+PRIM_IN_FREQ under BD propagation rather than a USER override, following the
+installed clk_wiz_v6_0/bd/bd.tcl pre_propagate/propagate implementation. This
+does not waive frequency checks. Setup/hold and output clock remain subject
+to audit after the corrected build completes.

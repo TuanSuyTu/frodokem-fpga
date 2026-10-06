@@ -60,8 +60,9 @@ connect_bd_intf_net [get_bd_intf_pins control/M00_AXI] [get_bd_intf_pins acceler
 set fabric_clock [get_bd_pins ps/pl_clk0]
 if {$clock_profile eq "ps100_pl50"} {
     set wiz [create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 fabric_clock]
-    set_property -dict [list CONFIG.PRIM_IN_FREQ {100.000} \
-        CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50.000} CONFIG.USE_RESET {false} \
+    # Leave PRIM_IN_FREQ non-USER so Clocking Wizard propagates the exact
+    # PS clock rate. The board preset rounds requested 100 MHz to 99,999,001 Hz.
+    set_property -dict [list CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50.000} CONFIG.USE_RESET {false} \
         CONFIG.USE_LOCKED {true}] $wiz
     connect_bd_net [get_bd_pins ps/pl_clk0] [get_bd_pins fabric_clock/clk_in1]
     set fabric_clock [get_bd_pins fabric_clock/clk_out1]
