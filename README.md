@@ -29,6 +29,8 @@ gcc -std=c11 -O2 -Wall -Wextra frodokem_pio.c frodokem_pio_driver.c -o frodokem_
 
 See `docs/AXI_LITE_PIO.md`. It requires the new PIO bitstream; the original
 `board/frodokem_kv260.xsa` is the old DMA platform and cannot run this driver.
+The routed PIO artifacts are `board/frodokem_pio_kv260.bit` and
+`board/frodokem_pio_kv260.xsa`; see `docs/PIO_VALIDATION.md` for evidence.
 Board execution is not yet validated. PIO software services TX and RX in one
 loop to avoid small-FIFO deadlock. Native energy figures are not PIO wall
 latency or board energy measurements.

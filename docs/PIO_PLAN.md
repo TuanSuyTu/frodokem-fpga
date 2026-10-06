@@ -64,3 +64,13 @@ to the underlying HDL module name. The BD stores the module reference VLNV as
 xilinx.com:module_ref:frodokem_pio_bd_bridge:1.0. The guard now uses VLNV, as
 the installed Vivado IP Integrator scripts do. This was a script guard failure,
 not another RTL/functional failure; no long synthesis or P&R was performed.
+
+## Physical gate complete
+
+Corrected build completed as job-muwmeqir-0fd39173 with exit code 0. Raw
+timing/utilization/route/DRC reports were independently audited and preserved
+in pio_physical. Routed setup is +6.107 ns and hold +0.010 ns; there are no
+routing errors or unconstrained internal endpoints. DRC has 385 warnings,
+no Error/Critical Warning. Bitstream and XSA are packaged in board with PIO
+names; bitstream hash matches the embedded XSA bitstream. Source hashes passed
+before and after physical implementation. Hardware board validation remains.

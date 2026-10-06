@@ -34,6 +34,22 @@ entire input packet before reading output can deadlock a small-FIFO interface.
 
 ## Build software on the board
 
+The new artifacts are `board/frodokem_pio_kv260.bit` and
+`board/frodokem_pio_kv260.xsa`. Do not load the old DMA bitstream.
+See `PIO_VALIDATION.md` for functional and physical evidence. Before loading,
+confirm exclusive use of the shared board and collect the runtime PL clock:
+
+```sh
+uname -m
+cat /sys/class/fpga_manager/fpga0/state
+sudo cat /sys/kernel/debug/clk/clk_summary | grep -E 'pl0|pl_clk|fclk'
+```
+
+If clock debugfs is absent, report that rather than guessing the clock.
+The routed platform uses 52.631054 MHz. Loading .bit does not apply the PS
+clock/reset settings from the XSA; those must match the live Linux platform.
+Do not execute generated psu_init code on a live Linux board.
+
 ```sh
 cd sw
 gcc -std=c11 -O2 -Wall -Wextra frodokem_pio.c frodokem_pio_driver.c -o frodokem_pio
