@@ -2,6 +2,21 @@
 if {$argc!=1} {error "Usage: build_pio.tcl OUTPUT_DIRECTORY"}
 set root [file normalize [file join [file dirname [info script]] ..]]
 set out [file normalize [lindex $argv 0]]
+if {[info exists ::env(FK_PIO_RESUME_PROJECT)]} {
+    set project [file normalize $::env(FK_PIO_RESUME_PROJECT)]
+    if {![file isfile $project]} {error "PIO_RESUME_PROJECT_MISSING"}
+    open_project $project
+    set out [file dirname $project]
+    if {[get_property TOP [current_fileset]] ne "system_wrapper"} {error "PIO_RESUME_WRONG_TOP"}
+    if {[llength [get_files *frodokem_pio_top.sv]]!=1} {error "PIO_RESUME_WRONG_SOURCES"}
+    open_bd_design [get_files system.bd]
+    if {[get_property REF_NAME [get_bd_cells accelerator]] ne "frodokem_pio_bd_bridge"} {
+        error "PIO_RESUME_WRONG_ACCELERATOR"
+    }
+    reset_runs system_accelerator_0_synth_1
+    reset_runs synth_1
+    reset_runs impl_1
+} else {
 set board [get_board_parts xilinx.com:kv260_som:part0:1.4]
 if {[llength $board]!=1} {error "VERIFIED_KV260_PRESET_NOT_INSTALLED"}
 set part [get_property PART_NAME $board]
@@ -56,6 +71,7 @@ set manifest [open [file join $out PLATFORM_MANIFEST.txt] w]
 puts $manifest "BOARD_PART=$board\nPART=$part\nTOOL=[version -short]\nTRANSPORT=AXI_LITE_PIO\nBASE=0xA0000000"
 puts $manifest "REQUESTED_PL_CLOCK_MHZ=55\nACTUAL_PL_CLOCK_HZ=[get_property CONFIG.FREQ_HZ [get_bd_pins ps/pl_clk0]]"
 close $manifest
+}
 set_param general.maxThreads 4
 launch_runs synth_1 -jobs 4
 wait_on_run synth_1

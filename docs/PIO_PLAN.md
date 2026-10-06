@@ -46,3 +46,15 @@ Exact simulation-source hashes on VM match local sources. All native core,
 matrix and helper files remain unchanged from the frozen package. Synthesis,
 P&R and board validation are the remaining gates; no physical or board PASS
 is claimed yet.
+
+## First physical-build correction
+
+The first build stopped in accelerator synthesis, before P&R, with Synth
+8-1577 at frodokem_pio_top.sv lines 31-32. Mixed initialized/uninitialized net
+declarations were replaced with plain declarations and explicit constant
+assignments; no transport or arithmetic behavior changed. The exact PIO top
+then passed Cadence compile/elaboration, recorded in PIO_TOP_ELAB.txt.
+PIO_BUILD_FAILURE.txt preserves the original failure. The existing project
+is reused; the failed accelerator and dependent top runs are reset, not the
+entire platform recreated. Setup/hold and bitstream gates remain unchanged.
+The generated platform clock is 52,631,054 Hz, not the requested 55 MHz.

@@ -28,9 +28,14 @@ module frodokem_pio_top (
   input wire s_axi_rready,
   output wire irq
 );
-  wire [63:0] s_axis_tdata=64'b0, m_axis_tdata;
-  wire [7:0] s_axis_tkeep=8'hff, m_axis_tkeep;
-  wire s_axis_tvalid=1'b0, s_axis_tlast=1'b0, m_axis_tready=1'b0;
+  wire [63:0] s_axis_tdata, m_axis_tdata;
+  wire [7:0] s_axis_tkeep, m_axis_tkeep;
+  wire s_axis_tvalid, s_axis_tlast, m_axis_tready;
+  assign s_axis_tdata=64'b0;
+  assign s_axis_tkeep=8'hff;
+  assign s_axis_tvalid=1'b0;
+  assign s_axis_tlast=1'b0;
+  assign m_axis_tready=1'b0;
   wire s_axis_tready,m_axis_tvalid,m_axis_tlast;
   wire [2:0] native_cmd;
   wire native_cmd_valid,native_cmd_ready,native_in_valid,native_in_ready;
