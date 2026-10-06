@@ -1,5 +1,34 @@
 # PetaLinux deployment prerequisites
 
+## Minimal GCC workflow
+
+From `sw` on the KV260:
+
+```sh
+gcc -std=c11 -O2 -Wall -Wextra frodokem_petalinux.c FPGA_Driver.c frodokem_driver.c -o frodokem
+./frodokem
+```
+
+The default action lists UIO map0 names, addresses and sizes from sysfs only.
+It does not mmap MMIO, write registers, start DMA or load a bitstream. Send
+this output and the DDR driver's mapping/reservation configuration for review.
+After reservation, exclusive ownership and uncached/coherent mapping are
+confirmed by the board owner, run:
+
+```sh
+./frodokem --run ACTUAL_DDR_UIO_NAME --confirmed-reserved-uncached-ddr
+```
+
+The application auto-discovers the two MMIO UIO nodes by their hardware base
+addresses. It refuses ambiguity. The DDR node is explicit: a UIO name cannot
+establish cache coherency. Do not acknowledge the flag based only on a name.
+No root privilege is needed for sysfs probing; transfers require UIO access
+permissions. A clean GCC build is not evidence of board compatibility.
+
+The backend follows AMD PG021 direct-register programming and tracks pending
+transfers separately from initial Halted status:
+https://docs.amd.com/r/en-US/pg021_axi_dma/Direct-Register-Mode-Simple-DMA
+
 This software follows LeNet's UIO userspace style, not its hardware protocol.
 Do not load LeNet's `system.bin` or reuse its PS ZDMA addresses for this design.
 The exported XSA supplies this accelerator's bitstream and hardware metadata.

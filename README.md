@@ -18,6 +18,16 @@ cryptographic implementation or a board-validation claim.
 
 ## Linux/PetaLinux, without Vitis
 
+In `sw`, build directly with:
+
+```sh
+gcc -std=c11 -O2 -Wall -Wextra frodokem_petalinux.c FPGA_Driver.c frodokem_driver.c -o frodokem
+./frodokem
+```
+
+The default action is sysfs discovery only and does not start DMA. See
+`docs/PETALINUX_DEPLOYMENT.md` for the explicitly confirmed hardware run.
+
 `sw/FPGA_Driver.c` follows the existing LeNet application's UIO/sysfs/mmap
 approach. It does NOT reuse LeNet's PS ZDMA register map: this hardware uses
 PL AXI DMA at `0xA0010000`, with accelerator control at `0xA0000000`.

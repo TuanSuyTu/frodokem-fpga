@@ -3,14 +3,25 @@
 #include <stdio.h>
 #include <string.h>
 int main(int argc,char **argv) {
-    if(argc!=5 || strcmp(argv[4],"--confirmed-reserved-uncached-ddr")) {
-        fprintf(stderr,"Usage: %s ACCEL_UIO_NAME AXIDMA_UIO_NAME DDR_UIO_NAME --confirmed-reserved-uncached-ddr\n",argv[0]);
+    if(argc==1 || (argc==2 && !strcmp(argv[1],"--probe"))) return fpga_probe()?1:0;
+    const char *regs=NULL,*dma=NULL,*ddr=NULL;
+    if(argc==4 && !strcmp(argv[1],"--run") && !strcmp(argv[3],"--confirmed-reserved-uncached-ddr")) ddr=argv[2];
+    else if(argc==5 && !strcmp(argv[4],"--confirmed-reserved-uncached-ddr")) { regs=argv[1]; dma=argv[2]; ddr=argv[3]; }
+    else {
+        fprintf(stderr,"Usage: %s [--probe]\n       %s --run DDR_UIO_NAME --confirmed-reserved-uncached-ddr\n",argv[0],argv[0]);
         return 2;
     }
     struct fk_linux context;
-    if(fpga_open(&context,argv[1],argv[2],argv[3],1)) { perror("fpga_open"); return 1; }
+    if(fpga_open(&context,regs,dma,ddr,1)) { perror("fpga_open"); return 1; }
     struct fk_io io; struct fk_stats stats;
     fpga_bind(&io,&context);
+    /* Check ownership/status BEFORE touching the reserved DDR buffers. */
+    if(io.read32(io.ctx,FK_ID)!=UINT32_C(0x46524f31) ||
+       (io.read32(io.ctx,FK_CAP)&15)!=15 || (io.read32(io.ctx,FK_STATUS)&FK_BUSY) ||
+       io.dma_busy(io.ctx,FK_TX)!=0 || io.dma_busy(io.ctx,FK_RX)!=0) {
+        fprintf(stderr,"PREFLIGHT_FAIL: wrong image, active DMA/core, SG mode or DMA error; nothing submitted\n");
+        fpga_close(&context); return 1;
+    }
     unsigned char *boot=context.ddr.ptr;
     unsigned char *input=boot+4096,*output=boot+36864;
     const unsigned char *boots[]={fk_op0_kind0,fk_op1_kind0,fk_op2_kind0};

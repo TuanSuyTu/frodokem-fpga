@@ -1,6 +1,8 @@
 *.o
 sw/test_driver_host
+sw/test_linux_backend
 sw/frodokem_petalinux
+sw/frodokem
 xsim.dir/
 xcelium.d/
 *.jou

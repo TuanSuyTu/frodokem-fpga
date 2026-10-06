@@ -18,7 +18,26 @@ static int text_file(const char *path, char *buf, size_t size) {
     buf[strcspn(buf,"\r\n")]=0;
     return 0;
 }
-static int map_uio(struct fk_mapping *m,const char *name) {
+int fpga_probe(void) {
+    DIR *dir=opendir("/sys/class/uio");
+    struct dirent *ent;
+    char path[512],name[256],addr[256],size[256];
+    if(!dir) { perror("/sys/class/uio"); return -1; }
+    while((ent=readdir(dir))) {
+        if(strncmp(ent->d_name,"uio",3)) continue;
+        snprintf(path,sizeof path,"/sys/class/uio/%s/name",ent->d_name);
+        if(text_file(path,name,sizeof name)) continue;
+        snprintf(path,sizeof path,"/sys/class/uio/%s/maps/map0/addr",ent->d_name);
+        if(text_file(path,addr,sizeof addr)) continue;
+        snprintf(path,sizeof path,"/sys/class/uio/%s/maps/map0/size",ent->d_name);
+        if(text_file(path,size,sizeof size)) continue;
+        printf("%s name=%s addr=%s size=%s\n",ent->d_name,name,addr,size);
+    }
+    closedir(dir);
+    puts("PROBE_ONLY: no MMIO or DMA performed. DDR reservation/cache policy needs board-owner confirmation.");
+    return 0;
+}
+static int map_uio(struct fk_mapping *m,const char *name,uint64_t base) {
     DIR *dir=opendir("/sys/class/uio");
     struct dirent *ent;
     char path[512],buf[256],device[256]={0};
@@ -26,7 +45,14 @@ static int map_uio(struct fk_mapping *m,const char *name) {
     while((ent=readdir(dir))) {
         if(strncmp(ent->d_name,"uio",3)) continue;
         snprintf(path,sizeof path,"/sys/class/uio/%s/name",ent->d_name);
-        if(!text_file(path,buf,sizeof buf) && !strcmp(buf,name)) {
+        int match=0;
+        if(name) match=!text_file(path,buf,sizeof buf) && !strcmp(buf,name);
+        else {
+            unsigned long long addr;
+            snprintf(path,sizeof path,"/sys/class/uio/%s/maps/map0/addr",ent->d_name);
+            match=!text_file(path,buf,sizeof buf) && sscanf(buf,"%llx",&addr)==1 && addr==base;
+        }
+        if(match) {
             if(device[0]) { closedir(dir); errno=EEXIST; return -1; }
             snprintf(device,sizeof device,"%s",ent->d_name);
         }
@@ -58,11 +84,17 @@ void fpga_close(struct fk_linux *c) {
     }
 }
 int fpga_open(struct fk_linux *c,const char *regs,const char *dma,const char *ddr,int safe) {
-    if(!c || !regs || !dma || !ddr || !safe) { errno=EINVAL; return -1; }
+    if(!c || !ddr || !safe) { errno=EINVAL; return -1; }
     memset(c,0,sizeof *c);
-    if(map_uio(&c->regs,regs) || map_uio(&c->dma,dma) || map_uio(&c->ddr,ddr)) goto fail;
+    if(map_uio(&c->regs,regs,0xa0000000) || map_uio(&c->dma,dma,0xa0010000) || map_uio(&c->ddr,ddr,0)) goto fail;
     if(c->regs.phys!=0xa0000000 || c->dma.phys!=0xa0010000 ||
-       c->regs.size<64 || c->dma.size<0x5c || c->ddr.size<65536 || (c->ddr.phys&7)) {
+       c->regs.size<64 || c->dma.size<0x5c || c->ddr.size<65536 || (c->ddr.phys&7) ||
+       c->ddr.phys>UINT64_MAX-c->ddr.size) {
+        errno=EINVAL; goto fail;
+    }
+    /* A mistaken DDR UIO name must never turn buffer writes into MMIO writes. */
+    if((c->ddr.phys<0xa0010000 && c->ddr.phys+c->ddr.size>0xa0000000) ||
+       (c->ddr.phys<0xa0020000 && c->ddr.phys+c->ddr.size>0xa0010000)) {
         errno=EINVAL; goto fail;
     }
     return 0;
@@ -83,8 +115,13 @@ static int dma_busy(void *p,enum fk_dma_direction dir) {
     struct fk_linux *c=p;
     unsigned base=dir==FK_TX?0:0x30;
     uint32_t s=rd_map(&c->dma,base+4);
-    if(s&0x770) return -1;
-    return !(s&2); /* Idle, NOT merely IOC from an earlier transfer. */
+    if(s&0x778) return -1; /* Reject SG mode and DMA error flags. */
+    if(c->pending[dir]) {
+        if(s&1) return -1; /* Unexpected halt after submitting a transfer. */
+        if((s&0x1002)==0x1002) { c->pending[dir]=0; return 0; }
+        return 1;
+    }
+    return !(s&3); /* Initially Halted or Idle is available, not an active job. */
 }
 static int dma_submit(void *p,enum fk_dma_direction dir,void *buffer,size_t bytes) {
     struct fk_linux *c=p;
@@ -93,12 +130,22 @@ static int dma_submit(void *p,enum fk_dma_direction dir,void *buffer,size_t byte
        bytes>c->ddr.size-(at-begin) || (at&7)) return -1;
     unsigned base=dir==FK_TX?0:0x30;
     uint32_t status=rd_map(&c->dma,base+4);
-    if(status&0x770 || (!(status&1) && !(status&2))) return -1;
+    if(c->pending[dir] || status&0x778 || (!(status&1) && !(status&2))) return -1;
     uint64_t addr=c->ddr.phys+(at-begin);
     wr_map(&c->dma,base+4,0x7000);
     wr_map(&c->dma,base,1); /* Simple-mode AXI DMA run, polling without IRQ. */
+    /* PG021: wait until Halted deasserts before programming a transfer. */
+    struct timespec begin_time,now,pause={0,100000};
+    clock_gettime(CLOCK_MONOTONIC,&begin_time);
+    while(rd_map(&c->dma,base+4)&1) {
+        clock_gettime(CLOCK_MONOTONIC,&now);
+        int64_t ns=(int64_t)(now.tv_sec-begin_time.tv_sec)*1000000000+now.tv_nsec-begin_time.tv_nsec;
+        if(ns>=100000000) return -1;
+        nanosleep(&pause,NULL);
+    }
     wr_map(&c->dma,base+0x18,(uint32_t)addr);
     wr_map(&c->dma,base+0x1c,(uint32_t)(addr>>32));
+    c->pending[dir]=1;
     wr_map(&c->dma,base+0x28,(uint32_t)bytes); /* Length starts transfer. */
     return 0;
 }
