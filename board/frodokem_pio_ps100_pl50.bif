@@ -1,0 +1,4 @@
+all:
+{
+    frodokem_pio_ps100_pl50.bit
+}
