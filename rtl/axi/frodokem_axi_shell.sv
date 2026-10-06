@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 // Native-core-independent wrapper. Production entropy is intentionally not exposed.
-module frodokem_axi_shell (
+module frodokem_axi_shell #(parameter bit PIO = 0) (
   input logic clk, aresetn,
   input logic [11:0] s_axi_awaddr,
   input logic s_axi_awvalid,
@@ -54,6 +54,13 @@ module frodokem_axi_shell (
   wire active_run=state==RUN;
   wire reset_active=!aresetn || data_reset_pulse || reset_count!=0;
   wire in_fifo_ready,in_fifo_valid,out_fifo_ready,out_fifo_valid;
+  wire [63:0] pio_tx_data;
+  wire pio_tx_valid,pio_tx_last,pio_rx_ready;
+  wire [63:0] ingress_data=PIO ? pio_tx_data : s_axis_tdata;
+  wire ingress_valid=PIO ? pio_tx_valid : s_axis_tvalid;
+  wire ingress_last=PIO ? pio_tx_last : s_axis_tlast;
+  wire [7:0] ingress_keep=PIO ? 8'hff : s_axis_tkeep;
+  wire egress_ready=PIO ? pio_rx_ready : m_axis_tready;
   wire [63:0] in_fifo_data;
   wire [64:0] out_fifo_data;
   wire in_fifo_pop=in_fifo_valid && native_in_ready && (active_boot||active_run) && !reset_active;
@@ -61,10 +68,10 @@ module frodokem_axi_shell (
   wire [31:0] receive_limit=active_boot ? 32'd12 : expected_inputs;
   wire accept_phase=(active_boot||active_run) && receive_index<receive_limit && !reset_active;
   assign s_axis_tready=accept_phase && in_fifo_ready;
-  wire axis_in_fire=s_axis_tvalid && s_axis_tready;
-  wire input_bad=axis_in_fire && (s_axis_tkeep!=8'hff || s_axis_tlast!=(receive_index+1==receive_limit));
+  wire axis_in_fire=ingress_valid && s_axis_tready;
+  wire input_bad=axis_in_fire && (ingress_keep!=8'hff || ingress_last!=(receive_index+1==receive_limit));
   wire core_out_fire=native_out_valid && native_out_ready;
-  wire axis_out_fire=m_axis_tvalid && m_axis_tready;
+  wire axis_out_fire=m_axis_tvalid && egress_ready;
   assign native_rst=reset_active;
   assign native_in=in_fifo_data[63:0];
   assign native_in_valid=in_fifo_pop;
@@ -74,11 +81,11 @@ module frodokem_axi_shell (
   assign m_axis_tkeep=8'hff;
   assign m_axis_tvalid=out_fifo_valid && !reset_active;
   frodokem_word_fifo #(.WIDTH(64)) input_fifo(.clk(clk),.rst(reset_active),
-    .in_data(s_axis_tdata),.in_valid(axis_in_fire&&!input_bad),.in_ready(in_fifo_ready),
+    .in_data(ingress_data),.in_valid(axis_in_fire&&!input_bad),.in_ready(in_fifo_ready),
     .out_data(in_fifo_data),.out_valid(in_fifo_valid),.out_ready(in_fifo_pop));
   frodokem_word_fifo output_fifo(.clk(clk),.rst(reset_active),
     .in_data({out_captured+1==expected_outputs,native_out}),.in_valid(core_out_fire),.in_ready(out_fifo_ready),
-    .out_data(out_fifo_data),.out_valid(out_fifo_valid),.out_ready(m_axis_tready&&!reset_active));
+    .out_data(out_fifo_data),.out_valid(out_fifo_valid),.out_ready(egress_ready&&!reset_active));
   always_comb begin
     case(operation)
       0: begin in_bytes=0; out_bytes=19888; end
@@ -101,7 +108,10 @@ module frodokem_axi_shell (
     native_cmd=state==PARAM_CMD ? 3'd5 : state==SETUP_CMD ? 3'd3 : job_op[2:0];
     native_cmd_valid=(state==PARAM_CMD||state==SETUP_CMD||state==OP_CMD) && native_cmd_ready && !reset_active;
   end
-  frodokem_axil_regs registers(.*,.data_reset_safe(!out_fifo_valid));
+  frodokem_axil_regs #(.PIO(PIO)) registers(.*,
+    .pio_tx_ready(s_axis_tready),.pio_rx_data(m_axis_tdata),
+    .pio_rx_valid(m_axis_tvalid),.pio_rx_last(m_axis_tlast),
+    .data_reset_safe(!out_fifo_valid && (!PIO || !pio_tx_valid)));
   always_ff @(posedge clk) begin
     if(!aresetn) reset_count<=4;
     else if(data_reset_pulse) reset_count<=4;
@@ -137,7 +147,7 @@ module frodokem_axi_shell (
         end
         default: begin end
       endcase
-      if(input_bad) begin state<=ERROR; error_code<=s_axis_tkeep!=8'hff ? 1 : 2; error_event<=1; done_event<=0; end
+      if(input_bad) begin state<=ERROR; error_code<=ingress_keep!=8'hff ? 1 : 2; error_event<=1; done_event<=0; end
     end
   end
 endmodule

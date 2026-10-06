@@ -1,9 +1,14 @@
 CC ?= cc
 CFLAGS ?= -std=c11 -O2 -Wall -Wextra -Werror
 .PHONY: test clean
-test: test_driver_host test_linux_backend FPGA_Driver.o frodokem_petalinux
+test: test_driver_host test_linux_backend FPGA_Driver.o frodokem_petalinux frodokem_pio test_pio_host
 	./test_driver_host
 	./test_linux_backend
+	./test_pio_host
+frodokem_pio: frodokem_pio.c frodokem_pio_driver.c frodokem_pio_driver.h frodokem_kat_vectors.h
+	$(CC) $(CFLAGS) frodokem_pio.c frodokem_pio_driver.c -o $@
+test_pio_host: test_pio_host.c frodokem_pio_driver.c frodokem_pio_driver.h
+	$(CC) $(CFLAGS) test_pio_host.c frodokem_pio_driver.c -o $@
 test_driver_host: test_driver_host.c frodokem_driver.c frodokem_driver.h
 	$(CC) $(CFLAGS) test_driver_host.c frodokem_driver.c -o $@
 FPGA_Driver.o: FPGA_Driver.c FPGA_Driver.h frodokem_driver.h
@@ -13,4 +18,4 @@ frodokem_petalinux: frodokem_petalinux.c FPGA_Driver.o frodokem_driver.c frodoke
 test_linux_backend: test_linux_backend.c FPGA_Driver.o
 	$(CC) $(CFLAGS) test_linux_backend.c FPGA_Driver.o -o $@
 clean:
-	rm -f test_driver_host test_linux_backend frodokem_petalinux FPGA_Driver.o
+	rm -f test_driver_host test_linux_backend frodokem_petalinux FPGA_Driver.o frodokem_pio test_pio_host

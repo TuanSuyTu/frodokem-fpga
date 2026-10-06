@@ -1,5 +1,8 @@
 # PetaLinux deployment prerequisites
 
+This page describes the original DMA transport only. For the requested
+AXI-Lite-only, no-reserved-DDR deployment, use `AXI_LITE_PIO.md` instead.
+
 ## Minimal GCC workflow
 
 From `sw` on the KV260:

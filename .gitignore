@@ -8,3 +8,7 @@ xcelium.d/
 *.jou
 *.log
 cadence-kat.*/
+cadence-pio.*/
+build-pio/
+sw/frodokem_pio
+sw/test_pio_host

@@ -1,0 +1,1527 @@
+TOOL:	xrun(64)	25.03-s001: Started on Oct 06, 2026 at 07:42:46 EDT
+xrun(64): 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_carry16.sv
+	module worklib.full50_carry16:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_gena16.sv
+	module worklib.full50_gena16:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_gena_matrix16.sv
+	module worklib.full50_gena_matrix16:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_gena_ring12.sv
+	module worklib.full50_gena_ring12:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_keccak_round.sv
+	module worklib.full50_keccak_round:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_matrix16.sv
+	module worklib.full50_matrix16:sv
+		errors: 0, warnings: 0
+	module worklib.full50_shared_product:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_rate_bram.sv
+	module worklib.full50_rate_bram:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_ring4_permute.sv
+	module worklib.full50_ring4_permute:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_ring_memory_path.sv
+	module worklib.full25_keygen_memory_path:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/helpers/full25_as_commit_adapter.sv
+	module worklib.full25_as_commit_adapter:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/helpers/gena_shake128_row_init.sv
+	module worklib.gena_shake128_row_init:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/helpers/keccak_rc_indexed.sv
+	module worklib.keccak_rc_indexed:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/axi/frodokem_word_fifo.sv
+	module worklib.frodokem_word_fifo:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/axi/frodokem_axil_regs.sv
+	module worklib.frodokem_axil_regs:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/axi/frodokem_axi_shell.sv
+	module worklib.frodokem_axi_shell:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/tb/tb_pio.sv
+	module worklib.tb_pio:sv
+		errors: 0, warnings: 0
+xmvlog: *W,SPDUSD: Include directory /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/core given but not used.
+xmvlog: *W,SPDUSD: Include directory /home/tuan/frodokem-pio-20261006.CSrsUv/vectors given but not used.
+	Total errors/warnings found outside modules and primitives:
+		errors: 0, warnings: 2
+	Elaborating the design hierarchy:
+		Caching library 'worklib' ....... Done
+	Top level design units:
+		tb_pio
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.frodokem_axil_regs:sv <0x5b964135>
+			streams:  64, words: 32387
+		worklib.frodokem_word_fifo:sv <0x117eb371>
+			streams:   8, words:  3267
+		worklib.frodokem_word_fifo:sv <0x1d9112da>
+			streams:   8, words:  2958
+		worklib.tb_pio:sv <0x06da539f>
+			streams:  83, words: 68042
+		worklib.frodokem_axi_shell:sv <0x5a0d6089>
+			streams:  46, words: 20199
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 5       4
+		Registers:             165     158
+		Scalar wires:           65       -
+		Vectored wires:         33       -
+		Always blocks:          19      18
+		Initial blocks:         35      35
+		Parallel blocks:         1       1
+		Cont. assignments:      26      35
+		Pseudo assignments:     34       -
+		Assertions:              4       4
+		Process Clocks:          4       1
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.pio_stub:sv
+TOOL:	xrun(64)	25.03-s001: Exiting on Oct 06, 2026 at 07:42:46 EDT  (total: 00:00:00)
+TOOL:	xrun(64)	25.03-s001: Started on Oct 06, 2026 at 07:42:46 EDT
+xrun(64): 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+Loading snapshot worklib.pio_stub:sv .................... Done
+xcelium> source /home/tuan/tools/cadence/XCELIUM2503/tools/xcelium/files/xmsimrc
+xcelium> run
+PIO_KAT_PASS op=0 words=2486
+PIO_KAT_PASS op=1 words=1221
+PIO_KAT_PASS op=2 words=2
+PIO_ALL_TESTS_PASS
+Simulation complete via $finish(1) at time 4784624 NS + 0
+../tb/tb_pio.sv:273     $finish;
+xcelium> exit
+TOOL:	xrun(64)	25.03-s001: Exiting on Oct 06, 2026 at 07:42:48 EDT  (total: 00:00:02)
+TOOL:	xrun(64)	25.03-s001: Started on Oct 06, 2026 at 07:42:48 EDT
+xrun(64): 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/tb/tb_pio.sv
+	module worklib.delay:v
+		errors: 0, warnings: 0
+	module worklib.optionalDelay:v
+		errors: 0, warnings: 0
+	module worklib.ff_en_next:v
+		errors: 0, warnings: 0
+	module worklib.ff_en_imm:v
+		errors: 0, warnings: 0
+	module worklib.ff_sr_next:v
+		errors: 0, warnings: 0
+	module worklib.ff_sr_imm:v
+		errors: 0, warnings: 0
+	module worklib.ff_rs_next:v
+		errors: 0, warnings: 0
+	module worklib.ff_rs_imm:v
+		errors: 0, warnings: 0
+	module worklib.ff_s_r:v
+		errors: 0, warnings: 0
+	module worklib.counter_bus:v
+		errors: 0, warnings: 0
+	module worklib.counter_bus_fixed:v
+		errors: 0, warnings: 0
+	module worklib.counter_bus_diff:v
+		errors: 0, warnings: 0
+	module worklib.counter_bus_state:v
+		errors: 0, warnings: 0
+	module worklib.serdes:v
+		errors: 0, warnings: 0
+	module worklib.bus_delayFull_std1:v
+		errors: 0, warnings: 0
+	module worklib.bus_delay_std1:v
+		errors: 0, warnings: 0
+	module worklib.bus_delay_unstd1:v
+		errors: 0, warnings: 0
+	module worklib.bus_fromstd1:v
+		errors: 0, warnings: 0
+	module worklib.bus_delay_std:v
+		errors: 0, warnings: 0
+	module worklib.bus_delayFull_std:v
+		errors: 0, warnings: 0
+	module worklib.bus_delay_unstd:v
+		errors: 0, warnings: 0
+	module worklib.bus_delay_fromstd:v
+		errors: 0, warnings: 0
+	module worklib.bus_delayFull_fromstd:v
+		errors: 0, warnings: 0
+	module worklib.swapBits:v
+		errors: 0, warnings: 0
+	module worklib.keccak_rc:v
+		errors: 0, warnings: 0
+	module worklib.keccak_theta:v
+		errors: 0, warnings: 0
+	module worklib.keccak_rho:v
+		errors: 0, warnings: 0
+	module worklib.keccak_pi:v
+		errors: 0, warnings: 0
+	module worklib.keccak_chi:v
+		errors: 0, warnings: 0
+	module worklib.keccak_iota:v
+		errors: 0, warnings: 0
+	module worklib.keccak_fn:v
+		errors: 0, warnings: 0
+	module worklib.keccak_iter:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busInConverter_addTerminator:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busInConverter_align:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busInConverter_padEndingAndEnd:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busInConverter_padCycle:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busInConverter:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busOutConverter:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busTwoIn:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busTwoOut:v
+		errors: 0, warnings: 0
+	module worklib.keccak_block:v
+		errors: 0, warnings: 0
+	module worklib.keccak_planToFree:v
+		errors: 0, warnings: 0
+	module worklib.keccak_delayWithShift:v
+		errors: 0, warnings: 0
+	module worklib.keccak_ctrl:v
+		errors: 0, warnings: 0
+	module worklib.keccak:v
+		errors: 0, warnings: 0
+	module worklib.seedAStorage:v
+		errors: 0, warnings: 0
+	module worklib.adapted_keccak__in:v
+		errors: 0, warnings: 0
+	module worklib.sampler_single:v
+		errors: 0, warnings: 0
+	module worklib.sampler:v
+		errors: 0, warnings: 0
+	module worklib.adapted_keccak__out:v
+		errors: 0, warnings: 0
+	module worklib.adapted_keccak:v
+		errors: 0, warnings: 0
+	module worklib.busSwitch:v
+		errors: 0, warnings: 0
+	module worklib.main_adapter_outer_out:v
+		errors: 0, warnings: 0
+	module worklib.main_adapter_outer_in:v
+		errors: 0, warnings: 0
+	module worklib.frodoMulSingle:v
+		errors: 0, warnings: 0
+	module worklib.frodoMul:v
+		errors: 0, warnings: 0
+	module worklib.bram:v
+		errors: 0, warnings: 0
+	module worklib.bram8:v
+		errors: 0, warnings: 0
+	module worklib.mem_elementIndexToByteEnable:v
+		errors: 0, warnings: 0
+	module worklib.mem_byteIndexToByteEnable:v
+		errors: 0, warnings: 0
+	module worklib.mainMem_readConnector:v
+		errors: 0, warnings: 0
+	module worklib.stdToCompact_single:v
+		errors: 0, warnings: 0
+	module worklib.stdToCompact:v
+		errors: 0, warnings: 0
+	module worklib.mainMem_writeConnector:v
+		errors: 0, warnings: 0
+	module worklib.mainMem:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__indexHandler:v
+		errors: 0, warnings: 0
+	module worklib.encode:v
+		errors: 0, warnings: 0
+	module worklib.encode4:v
+		errors: 0, warnings: 0
+	module worklib.decode:v
+		errors: 0, warnings: 0
+	module worklib.decode8:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__core:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__outAdapter:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__unpack16:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__pack16:v
+		errors: 0, warnings: 0
+	module worklib.realligner_core:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__unpack15:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__pack15:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__unpack:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__pack:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul_ctrl:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul:v
+		errors: 0, warnings: 0
+	module worklib.main_core:v
+		errors: 0, warnings: 0
+	module worklib.command_expansion:v
+		errors: 0, warnings: 0
+	module worklib.command_sequences:v
+		errors: 0, warnings: 0
+	module worklib.command_flattener:v
+		errors: 0, warnings: 0
+	module worklib.command_main:v
+		errors: 0, warnings: 0
+	module worklib.main:v
+		errors: 0, warnings: 0
+	module worklib.tb_pio:sv
+		errors: 0, warnings: 0
+	Elaborating the design hierarchy:
+		Caching library 'worklib' ....... Done
+  counter_bus_state #(.MAX_NUM_STEPS(5)) state__counter (
+                                                      |
+xmelab: *W,CUVWSP (../rtl/core/main.v,636|54): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,237): isLast
+
+  counter_bus_state #(.MAX_NUM_STEPS(`CMD_SEQ_NUM_STATES)) state__counter (
+                                                                        |
+xmelab: *W,CUVWSP (../rtl/core/main.v,202|72): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,237): isLast
+
+  counter_bus #(`Outer_MaxWordLen) counter (
+                                         |
+xmelab: *W,CUVWSP (../rtl/core/busHubAndAdapters.v,193|41): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,151): canReceive_wouldBeLast
+
+  counter_bus #(`Outer_MaxWordLen) counter (
+                                         |
+xmelab: *W,CUVWSP (../rtl/core/busHubAndAdapters.v,135|41): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,151): canReceive_wouldBeLast
+
+  counter_bus #(`Keccak_BlockCounterSize) numInBlocks (
+                                                    |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,1021|52): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,151): canReceive_wouldBeLast
+
+  counter_bus #(`Keccak_BlockCounterSize) numOutBlocks (
+                                                     |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,1034|53): 2 output ports were not connected:
+xmelab: (../rtl/core/lib.v,151): canReceive_wouldBeLast
+xmelab: (../rtl/core/lib.v,152): canReceive_isLast
+
+  counter_bus_fixed #(`SHAKE256_R64) c256 (
+                                        |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,386|40): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  counter_bus_fixed #(`SHAKE128_R64 - `SHAKE256_R64) cDiff (
+                                                         |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,400|57): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  counter_bus_fixed #(`SHAKE256_R64) c256 (
+                                        |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,548|40): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  counter_bus_fixed #(`SHAKE128_R64 - `SHAKE256_R64) cDiff (
+                                                         |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,563|57): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  counter_bus_fixed #(`SHAKESTATE_R64 - `SHAKE128_R64) cStateDiff (
+                                                                |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,579|64): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  serdes #(1600/64) state (
+                        |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,869|24): 2 output ports were not connected:
+xmelab: (../rtl/core/lib.v,269): des_isLast
+xmelab: (../rtl/core/lib.v,274): ser_isLast
+
+  counter_bus_fixed #(N) counter (
+                               |
+xmelab: *W,CUVWSP (../rtl/core/lib.v,288|31): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  serdes #(`SHAKE128_R64) buff (
+                             |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,888|29): 2 output ports were not connected:
+xmelab: (../rtl/core/lib.v,269): des_isLast
+xmelab: (../rtl/core/lib.v,274): ser_isLast
+
+  counter_bus_fixed #(24) counter (
+                                |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,231|32): 2 output ports were not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+xmelab: (../rtl/core/lib.v,185): canReceive_isLast
+
+  counter_bus #(N) actualCounter (
+                               |
+xmelab: *W,CUVWSP (../rtl/core/lib.v,217|31): 2 output ports were not connected:
+xmelab: (../rtl/core/lib.v,148): canRestart
+xmelab: (../rtl/core/lib.v,151): canReceive_wouldBeLast
+
+  counter_bus_state #(.MAX_NUM_STEPS(`MEMANDMUL__CORE__MAX_NUM_STATES)) state__counter (
+                                                                                     |
+xmelab: *W,CUVWSP (../rtl/core/memAndMul.v,384|85): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,232): canRestart
+
+	Top level design units:
+		tb_pio
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/5) for the instance(tb_pio.crypto_core.core.keccak.k.block.inConv.padCycle.c256) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/3) for the instance(tb_pio.crypto_core.core.keccak.k.block.inConv.padCycle.cDiff) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/5) for the instance(tb_pio.crypto_core.core.keccak.k.block.outConv.c256) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/3) for the instance(tb_pio.crypto_core.core.keccak.k.block.outConv.cDiff) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/3) for the instance(tb_pio.crypto_core.core.keccak.k.block.outConv.cStateDiff) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/5) for the instance(tb_pio.crypto_core.core.keccak.k.block.state.counter) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/5) for the instance(tb_pio.crypto_core.core.keccak.k.block.buff.counter) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/5) for the instance(tb_pio.crypto_core.core.keccak.k.block.core.counter) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/2) for the instance(tb_pio.crypto_core.core.keccak.k_in.seedA.serdes.counter) .
+    .r_bus_cmd(fast_owner ? 0 : mainMemory__r_bus_cmd),
+                          |
+xmelab: *W,CUVMPW (../rtl/core/memAndMul.v,531|26): port sizes differ in port connection(32/11) for the instance(tb_pio.crypto_core.core.memAndMul.core) .
+    .w_bus_cmd(fast_owner ? 0 : mainMemory__w_bus_cmd),
+                          |
+xmelab: *W,CUVMPW (../rtl/core/memAndMul.v,532|26): port sizes differ in port connection(32/11) for the instance(tb_pio.crypto_core.core.memAndMul.core) .
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.delay:v <0x189af946>
+			streams:   0, words:     0
+		worklib.realligner_core:v <0x3a98229d>
+			streams:   7, words:  3506
+		worklib.memAndMul__unpack15:v <0x060da57e>
+			streams:   0, words:     0
+		worklib.memAndMul__unpack16:v <0x3302e89a>
+			streams:   1, words:   935
+		worklib.memAndMul__unpack:v <0x617e8379>
+			streams:   4, words:  1943
+		worklib.realligner_core:v <0x7d43c8b2>
+			streams:   7, words:  3599
+		worklib.memAndMul__pack16:v <0x40913635>
+			streams:   1, words:   935
+		worklib.memAndMul__pack:v <0x05fe189e>
+			streams:   4, words:  2631
+		worklib.memAndMul__outAdapter:v <0x2a23f052>
+			streams:   6, words:  4639
+		worklib.encode:v <0x4d6eadf6>
+			streams:   1, words:   868
+		worklib.delay:v <0x30130cae>
+			streams:   2, words:   507
+		worklib.optionalDelay:v <0x7ad44fd9>
+			streams:   1, words:   409
+		worklib.decode:v <0x118b39ad>
+			streams:   1, words:   960
+		worklib.frodoMulSingle:v <0x05a1968c>
+			streams:   2, words:   984
+		worklib.stdToCompact_single:v <0x7c0a0752>
+			streams:   3, words:  1049
+		worklib.stdToCompact:v <0x5b436592>
+			streams:   1, words:   388
+		worklib.bram:v <0x48078044>
+			streams:  14, words:  8366
+		worklib.mainMem:v <0x47900fc3>
+			streams:   4, words:  1434
+		worklib.memAndMul__indexHandler:v <0x6a754205>
+			streams:  24, words:  9841
+		worklib.counter_bus_state:v <0x653e1d3c>
+			streams:   7, words:  1586
+		worklib.delay:v <0x2d543d59>
+			streams:   3, words:  1079
+		worklib.bus_fromstd1:v <0x6a85f352>
+			streams:   2, words:   457
+		worklib.bus_delay_std1:v <0x0c96d05d>
+			streams:   2, words:   457
+		worklib.memAndMul_ctrl:v <0x02439a09>
+			streams:   8, words:  2957
+		worklib.memAndMul:v <0x67399f60>
+			streams:   1, words:   260
+		worklib.full25_as_commit_adapter:sv <0x54120c9b>
+			streams:  11, words: 11092
+		worklib.full50_shared_product:sv <0x7ad98e0a>
+			streams:   3, words:   860
+		worklib.full50_carry16:sv <0x50bb9755>
+			streams:  18, words: 10220
+		worklib.keccak_rc_indexed:sv <0x5c81bcd1>
+			streams:   3, words:  9524
+		worklib.gena_shake128_row_init:sv <0x13b2904c>
+			streams:   1, words:   914
+		worklib.full50_gena_ring12:sv <0x20caa62b>
+			streams:  26, words: 11847
+		worklib.full50_gena16:sv <0x77cc22f9>
+			streams:  11, words:  3541
+		worklib.full50_gena_matrix16:sv <0x31c8a6af>
+			streams:  10, words:  3859
+		worklib.sampler_single:v <0x38793cc8>
+			streams:   2, words: 10871
+		worklib.sampler:v <0x20765918>
+			streams:   1, words:   882
+		worklib.bus_fromstd1:v <0x2af6e36e>
+			streams:   2, words:   360
+		worklib.bus_delay_std1:v <0x532a53e1>
+			streams:   2, words:   442
+		worklib.adapted_keccak__out:v <0x18d3ba37>
+			streams:   2, words:   402
+		worklib.delay:v <0x5f728dbc>
+			streams:   2, words:   429
+		worklib.counter_bus:v <0x2ed4b382>
+			streams:   6, words:  1450
+		worklib.counter_bus_fixed:v <0x53e95bc3>
+			streams:   1, words:   164
+		worklib.serdes:v <0x794cbe75>
+			streams:   2, words:  1037
+		worklib.delay:v <0x6eec8cca>
+			streams:   2, words:   694
+		worklib.bus_delay_std1:v <0x150c8ea2>
+			streams:   0, words:     0
+		worklib.seedAStorage:v <0x63c72893>
+			streams:   0, words:     0
+		worklib.counter_bus:v <0x2a89df21>
+			streams:   6, words:  1480
+		worklib.counter_bus_diff:v <0x0fc68483>
+			streams:   0, words:     0
+		worklib.bus_fromstd1:v <0x2c2adaa0>
+			streams:   2, words:   372
+		worklib.delay:v <0x7fe71999>
+			streams:   2, words:   441
+		worklib.bus_delayFull_std1:v <0x49a80aef>
+			streams:   4, words:   999
+		worklib.bus_delayFull_fromstd:v <0x6be90a11>
+			streams:   0, words:     0
+		worklib.adapted_keccak__in:v <0x73cedb62>
+			streams:   3, words:  1708
+		worklib.delay:v <0x0083f2c5>
+			streams:   3, words:   872
+		worklib.delay:v <0x61e43c2b>
+			streams:   3, words:   872
+		worklib.keccak_rc:v <0x70991f74>
+			streams:   2, words:  1326
+		worklib.counter_bus_fixed:v <0x71cf2575>
+			streams:   1, words:   164
+		worklib.keccak_iter:v <0x148adbec>
+			streams:   3, words:  2610
+		worklib.counter_bus_fixed:v <0x7f876d66>
+			streams:   1, words:   164
+		worklib.serdes:v <0x1d80127d>
+			streams:   2, words:  1281
+		worklib.counter_bus:v <0x57b74b7c>
+			streams:   5, words:  1161
+		worklib.counter_bus_fixed:v <0x0caa5f65>
+			streams:   1, words:   164
+		worklib.serdes:v <0x17cb589c>
+			streams:   2, words:  1281
+		worklib.keccak_busTwoIn:v <0x0940e1a1>
+			streams:   1, words:   509
+		worklib.bus_delayFull_std1:v <0x3bbfbcb5>
+			streams:   4, words:  1416
+		worklib.keccak_busOutConverter:v <0x1bc390d0>
+			streams:   1, words:   529
+		worklib.counter_bus:v <0x0810e137>
+			streams:   6, words:  1450
+		worklib.counter_bus_fixed:v <0x4ae91097>
+			streams:   1, words:   164
+		worklib.counter_bus:v <0x2c851cb5>
+			streams:   6, words:  1450
+		worklib.counter_bus_fixed:v <0x73387e91>
+			streams:   1, words:   164
+		worklib.keccak_busInConverter_padCycle:v <0x58062fa9>
+			streams:   1, words:   227
+		worklib.keccak_busInConverter_padEndingAndEnd:v <0x43bee681>
+			streams:   1, words:   583
+		worklib.keccak_busInConverter_align:v <0x56801279>
+			streams:   5, words:  2092
+		worklib.keccak_busInConverter_addTerminator:v <0x18e14fc4>
+			streams:   1, words:   310
+		worklib.keccak_busTwoOut:v <0x0ba0e033>
+			streams:   1, words:   258
+		worklib.delay:v <0x2b033a29>
+			streams:   2, words:   684
+		worklib.bus_delayFull_std1:v <0x35411cd0>
+			streams:   4, words:  2065
+		worklib.keccak_block:v <0x2985caaf>
+			streams:   4, words:  1790
+		worklib.delay:v <0x5824ce0a>
+			streams:   2, words:   435
+		worklib.bus_delay_std1:v <0x33c0f6b3>
+			streams:   2, words:   454
+		worklib.keccak_delayWithShift:v <0x6dece465>
+			streams:   1, words:   222
+		worklib.counter_bus:v <0x17c6678f>
+			streams:   5, words:  1191
+		worklib.delay:v <0x5559d099>
+			streams:   2, words:   441
+		worklib.counter_bus:v <0x6cf43046>
+			streams:   6, words:  1486
+		worklib.ff_s_r:v <0x71f61e95>
+			streams:   0, words:     0
+		worklib.ff_en_next:v <0x0ba7533d>
+			streams:   0, words:     0
+		worklib.keccak_ctrl:v <0x0800bb39>
+			streams:  56, words: 15403
+		worklib.keccak:v <0x2f09f433>
+			streams:   4, words:  2020
+		worklib.delay:v <0x194d2939>
+			streams:   2, words:   441
+		worklib.bus_delay_std1:v <0x3e1e7c28>
+			streams:   2, words:   457
+		worklib.adapted_keccak:v <0x51adee7e>
+			streams:   2, words:  1090
+		worklib.main_adapter_outer_out:v <0x6e3f8c68>
+			streams:   2, words:   287
+		worklib.ff_rs_next:v <0x5af665b9>
+			streams:   0, words:     0
+		worklib.delay:v <0x6a183169>
+			streams:   2, words:   441
+		worklib.counter_bus:v <0x4861cdc4>
+			streams:   6, words:  1486
+		worklib.main_adapter_outer_in:v <0x05e2ffbc>
+			streams:   3, words:   819
+		worklib.bus_fromstd1:v <0x38ca0416>
+			streams:   2, words:   360
+		worklib.delay:v <0x2c815ead>
+			streams:   2, words:   429
+		worklib.bus_delay_std1:v <0x4116b499>
+			streams:   2, words:   445
+		worklib.main_core:v <0x68971960>
+			streams:  17, words:  5740
+		worklib.command_expansion:v <0x2d963484>
+			streams:   6, words:  8574
+		worklib.delay:v <0x1d252146>
+			streams:   2, words:   441
+		worklib.bus_delay_unstd1:v <0x2ca06c2e>
+			streams:   2, words:   457
+		worklib.delay:v <0x087cc2f7>
+			streams:   2, words:   441
+		worklib.counter_bus_state:v <0x3eac1317>
+			streams:   6, words:  1379
+		worklib.delay:v <0x4a2b6e0d>
+			streams:   2, words:   429
+		worklib.command_sequences:v <0x11d982db>
+			streams:   4, words: 150209
+		worklib.ff_en_imm:v <0x7b0f8b51>
+			streams:   1, words:   248
+		worklib.delay:v <0x16ac38d7>
+			streams:   2, words:   441
+		worklib.command_flattener:v <0x2336a040>
+			streams:   5, words:  4202
+		worklib.bus_delay_unstd:v <0x39b8e952>
+			streams:   2, words:   309
+		worklib.delay:v <0x1366741c>
+			streams:   2, words:   429
+		worklib.counter_bus_state:v <0x7ee46847>
+			streams:   6, words:  1351
+		worklib.command_main:v <0x122c8d95>
+			streams:   3, words:  4260
+		worklib.ff_en_imm:v <0x583e7f7b>
+			streams:   0, words:     0
+		worklib.ff_sr_next:v <0x0ba244ec>
+			streams:   0, words:     0
+		worklib.delay:v <0x0a98a195>
+			streams:   2, words:   492
+		worklib.ff_en_imm:v <0x11e5fb31>
+			streams:   1, words:   323
+		worklib.delay:v <0x49bc1724>
+			streams:   2, words:   616
+		worklib.bus_delay_std1:v <0x5ca48e88>
+			streams:   2, words:   768
+		worklib.delay:v <0x2c2795ec>
+			streams:   2, words:   429
+		worklib.bus_delay_std1:v <0x3a806b50>
+			streams:   2, words:   442
+		worklib.delay:v <0x4a7dcf3a>
+			streams:   2, words:   450
+		worklib.main:v <0x2b25819f>
+			streams:  13, words:  4108
+		worklib.tb_pio:sv <0x5b35daa8>
+			streams:  80, words: 346043
+		worklib.bus_delay_std:v <0x053d4637>
+			streams:   4, words:   864
+		worklib.bus_delay_std:v <0x7db40e73>
+			streams:   4, words:  1121
+		worklib.bus_delay_unstd:v <0x0e75b1a5>
+			streams:   4, words:   974
+		worklib.bus_delay_std:v <0x6caba636>
+			streams:   4, words:   868
+		worklib.busSwitch:v <0x3c834762>
+			streams:  12, words:  3676
+		worklib.bus_delay_std:v <0x08d57788>
+			streams:   4, words:   889
+		worklib.keccak_planToFree:v <0x1553c766>
+			streams:   2, words:   498
+		worklib.bus_delay_std:v <0x1bfb92b3>
+			streams:   4, words:   930
+		worklib.bus_delayFull_std:v <0x147cfd7f>
+			streams:   4, words:  1972
+		worklib.bus_delayFull_std:v <0x41ee4092>
+			streams:   4, words:  1121
+		worklib.keccak_theta:v <0x59bf706c>
+			streams:   2, words:  1250
+		worklib.keccak_chi:v <0x688179e1>
+			streams:   1, words:   655
+		worklib.bus_delayFull_std:v <0x59ea0e82>
+			streams:   4, words:   881
+		worklib.bus_delay_std:v <0x5616225c>
+			streams:   4, words:   647
+		worklib.bus_delay_std:v <0x7092007a>
+			streams:   4, words:   851
+		worklib.full50_ring4_permute:sv <0x747b0432>
+			streams:  26, words: 29621
+		worklib.full50_rate_bram:sv <0x38ba34e0>
+			streams:   8, words:  3969
+		worklib.full50_matrix16:sv <0x2f233df7>
+			streams:  46, words: 27494
+		worklib.full25_keygen_memory_path:sv <0x6c703031>
+			streams:  34, words: 20285
+		worklib.bus_delay_std:v <0x14dc2096>
+			streams:   4, words:   883
+		worklib.bram8:v <0x3f2496f7>
+			streams:   7, words:  2844
+		worklib.mainMem_readConnector:v <0x148f2af9>
+			streams:  35, words: 30516
+		worklib.mem_elementIndexToByteEnable:v <0x4af58f92>
+			streams:   1, words:   213
+		worklib.mem_byteIndexToByteEnable:v <0x15c10627>
+			streams:   1, words:   211
+		worklib.mainMem_writeConnector:v <0x064fcb71>
+			streams:  27, words: 51965
+		worklib.frodoMul:v <0x55378845>
+			streams:  10, words:  5308
+		worklib.memAndMul__core:v <0x62995cc2>
+			streams:  71, words: 51376
+		worklib.swapBits:v <0x5b4175e9>
+			streams:   0, words:     0
+		worklib.swapBits:v <0x6346e67d>
+			streams:   0, words:     0
+		worklib.swapBits:v <0x7e2baca4>
+			streams:   0, words:     0
+		worklib.keccak_rho:v <0x3cee1efd>
+			streams:  25, words:  5150
+		worklib.keccak_pi:v <0x055ba8fc>
+			streams:   0, words:     0
+		worklib.keccak_chi:v <0x0dcee37a>
+			streams:   1, words:   726
+		worklib.keccak_iota:v <0x50bad332>
+			streams:   3, words:   974
+		worklib.full50_keccak_round:sv <0x028fe2c7>
+			streams:  17, words:  5883
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                    Instances  Unique
+		Modules:                  656     102
+		Resolved nets:              8      10
+		Registers:              1,051     311
+		Scalar wires:          45,290       -
+		Expanded wires:        17,014     864
+		Vectored wires:         3,222       -
+		Always blocks:            546      48
+		Initial blocks:            39      37
+		Parallel blocks:            1       1
+		Cont. assignments:     29,810   2,383
+		Pseudo assignments:       314       -
+		Assertions:                16       7
+		Process Clocks:           519       2
+		Simulation timescale:     1ps
+	Writing initial simulation snapshot: worklib.pio_real:sv
+TOOL:	xrun(64)	25.03-s001: Exiting on Oct 06, 2026 at 07:42:54 EDT  (total: 00:00:06)
+TOOL:	xrun(64)	25.03-s001: Started on Oct 06, 2026 at 07:42:55 EDT
+xrun(64): 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+Loading snapshot worklib.pio_real:sv .................... Done
+xcelium> source /home/tuan/tools/cadence/XCELIUM2503/tools/xcelium/files/xmsimrc
+xcelium> run
+PIO_KAT_PASS op=0 words=2486
+PIO_KAT_PASS op=1 words=1221
+PIO_KAT_PASS op=2 words=2
+PIO_ALL_TESTS_PASS
+Simulation complete via $finish(1) at time 6749072 NS + 0
+../tb/tb_pio.sv:273     $finish;
+xcelium> exit
+TOOL:	xrun(64)	25.03-s001: Exiting on Oct 06, 2026 at 07:43:39 EDT  (total: 00:00:44)
+PIO_CADENCE_PASS output=/home/tuan/frodokem-pio-20261006.CSrsUv/cadence-pio.wn0AGN
+TOOL:	xrun(64)	25.03-s001: Started on Oct 06, 2026 at 07:43:40 EDT
+xrun(64): 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_carry16.sv
+	module worklib.full50_carry16:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_gena16.sv
+	module worklib.full50_gena16:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_gena_matrix16.sv
+	module worklib.full50_gena_matrix16:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_gena_ring12.sv
+	module worklib.full50_gena_ring12:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_keccak_round.sv
+	module worklib.full50_keccak_round:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_matrix16.sv
+	module worklib.full50_matrix16:sv
+		errors: 0, warnings: 0
+	module worklib.full50_shared_product:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_rate_bram.sv
+	module worklib.full50_rate_bram:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_ring4_permute.sv
+	module worklib.full50_ring4_permute:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/matrix/full50_ring_memory_path.sv
+	module worklib.full25_keygen_memory_path:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/helpers/full25_as_commit_adapter.sv
+	module worklib.full25_as_commit_adapter:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/helpers/gena_shake128_row_init.sv
+	module worklib.gena_shake128_row_init:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/helpers/keccak_rc_indexed.sv
+	module worklib.keccak_rc_indexed:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/axi/frodokem_word_fifo.sv
+	module worklib.frodokem_word_fifo:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/axi/frodokem_axil_regs.sv
+	module worklib.frodokem_axil_regs:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/rtl/axi/frodokem_axi_shell.sv
+	module worklib.frodokem_axi_shell:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/tb/frodokem_axi_checks.sv
+	module worklib.frodokem_axi_checks:sv
+		errors: 0, warnings: 0
+file: /home/tuan/frodokem-pio-20261006.CSrsUv/tb/tb_axi_shell.sv
+	module worklib.delay:v
+		errors: 0, warnings: 0
+	module worklib.optionalDelay:v
+		errors: 0, warnings: 0
+	module worklib.ff_en_next:v
+		errors: 0, warnings: 0
+	module worklib.ff_en_imm:v
+		errors: 0, warnings: 0
+	module worklib.ff_sr_next:v
+		errors: 0, warnings: 0
+	module worklib.ff_sr_imm:v
+		errors: 0, warnings: 0
+	module worklib.ff_rs_next:v
+		errors: 0, warnings: 0
+	module worklib.ff_rs_imm:v
+		errors: 0, warnings: 0
+	module worklib.ff_s_r:v
+		errors: 0, warnings: 0
+	module worklib.counter_bus:v
+		errors: 0, warnings: 0
+	module worklib.counter_bus_fixed:v
+		errors: 0, warnings: 0
+	module worklib.counter_bus_diff:v
+		errors: 0, warnings: 0
+	module worklib.counter_bus_state:v
+		errors: 0, warnings: 0
+	module worklib.serdes:v
+		errors: 0, warnings: 0
+	module worklib.bus_delayFull_std1:v
+		errors: 0, warnings: 0
+	module worklib.bus_delay_std1:v
+		errors: 0, warnings: 0
+	module worklib.bus_delay_unstd1:v
+		errors: 0, warnings: 0
+	module worklib.bus_fromstd1:v
+		errors: 0, warnings: 0
+	module worklib.bus_delay_std:v
+		errors: 0, warnings: 0
+	module worklib.bus_delayFull_std:v
+		errors: 0, warnings: 0
+	module worklib.bus_delay_unstd:v
+		errors: 0, warnings: 0
+	module worklib.bus_delay_fromstd:v
+		errors: 0, warnings: 0
+	module worklib.bus_delayFull_fromstd:v
+		errors: 0, warnings: 0
+	module worklib.swapBits:v
+		errors: 0, warnings: 0
+	module worklib.keccak_rc:v
+		errors: 0, warnings: 0
+	module worklib.keccak_theta:v
+		errors: 0, warnings: 0
+	module worklib.keccak_rho:v
+		errors: 0, warnings: 0
+	module worklib.keccak_pi:v
+		errors: 0, warnings: 0
+	module worklib.keccak_chi:v
+		errors: 0, warnings: 0
+	module worklib.keccak_iota:v
+		errors: 0, warnings: 0
+	module worklib.keccak_fn:v
+		errors: 0, warnings: 0
+	module worklib.keccak_iter:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busInConverter_addTerminator:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busInConverter_align:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busInConverter_padEndingAndEnd:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busInConverter_padCycle:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busInConverter:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busOutConverter:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busTwoIn:v
+		errors: 0, warnings: 0
+	module worklib.keccak_busTwoOut:v
+		errors: 0, warnings: 0
+	module worklib.keccak_block:v
+		errors: 0, warnings: 0
+	module worklib.keccak_planToFree:v
+		errors: 0, warnings: 0
+	module worklib.keccak_delayWithShift:v
+		errors: 0, warnings: 0
+	module worklib.keccak_ctrl:v
+		errors: 0, warnings: 0
+	module worklib.keccak:v
+		errors: 0, warnings: 0
+	module worklib.seedAStorage:v
+		errors: 0, warnings: 0
+	module worklib.adapted_keccak__in:v
+		errors: 0, warnings: 0
+	module worklib.sampler_single:v
+		errors: 0, warnings: 0
+	module worklib.sampler:v
+		errors: 0, warnings: 0
+	module worklib.adapted_keccak__out:v
+		errors: 0, warnings: 0
+	module worklib.adapted_keccak:v
+		errors: 0, warnings: 0
+	module worklib.busSwitch:v
+		errors: 0, warnings: 0
+	module worklib.main_adapter_outer_out:v
+		errors: 0, warnings: 0
+	module worklib.main_adapter_outer_in:v
+		errors: 0, warnings: 0
+	module worklib.frodoMulSingle:v
+		errors: 0, warnings: 0
+	module worklib.frodoMul:v
+		errors: 0, warnings: 0
+	module worklib.bram:v
+		errors: 0, warnings: 0
+	module worklib.bram8:v
+		errors: 0, warnings: 0
+	module worklib.mem_elementIndexToByteEnable:v
+		errors: 0, warnings: 0
+	module worklib.mem_byteIndexToByteEnable:v
+		errors: 0, warnings: 0
+	module worklib.mainMem_readConnector:v
+		errors: 0, warnings: 0
+	module worklib.stdToCompact_single:v
+		errors: 0, warnings: 0
+	module worklib.stdToCompact:v
+		errors: 0, warnings: 0
+	module worklib.mainMem_writeConnector:v
+		errors: 0, warnings: 0
+	module worklib.mainMem:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__indexHandler:v
+		errors: 0, warnings: 0
+	module worklib.encode:v
+		errors: 0, warnings: 0
+	module worklib.encode4:v
+		errors: 0, warnings: 0
+	module worklib.decode:v
+		errors: 0, warnings: 0
+	module worklib.decode8:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__core:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__outAdapter:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__unpack16:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__pack16:v
+		errors: 0, warnings: 0
+	module worklib.realligner_core:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__unpack15:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__pack15:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__unpack:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul__pack:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul_ctrl:v
+		errors: 0, warnings: 0
+	module worklib.memAndMul:v
+		errors: 0, warnings: 0
+	module worklib.main_core:v
+		errors: 0, warnings: 0
+	module worklib.command_expansion:v
+		errors: 0, warnings: 0
+	module worklib.command_sequences:v
+		errors: 0, warnings: 0
+	module worklib.command_flattener:v
+		errors: 0, warnings: 0
+	module worklib.command_main:v
+		errors: 0, warnings: 0
+	module worklib.main:v
+		errors: 0, warnings: 0
+	module worklib.tb_axi_shell:sv
+		errors: 0, warnings: 0
+	Elaborating the design hierarchy:
+		Caching library 'worklib' ....... Done
+  counter_bus_state #(.MAX_NUM_STEPS(5)) state__counter (
+                                                      |
+xmelab: *W,CUVWSP (../rtl/core/main.v,636|54): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,237): isLast
+
+  counter_bus_state #(.MAX_NUM_STEPS(`CMD_SEQ_NUM_STATES)) state__counter (
+                                                                        |
+xmelab: *W,CUVWSP (../rtl/core/main.v,202|72): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,237): isLast
+
+  counter_bus #(`Outer_MaxWordLen) counter (
+                                         |
+xmelab: *W,CUVWSP (../rtl/core/busHubAndAdapters.v,193|41): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,151): canReceive_wouldBeLast
+
+  counter_bus #(`Outer_MaxWordLen) counter (
+                                         |
+xmelab: *W,CUVWSP (../rtl/core/busHubAndAdapters.v,135|41): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,151): canReceive_wouldBeLast
+
+  counter_bus #(`Keccak_BlockCounterSize) numInBlocks (
+                                                    |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,1021|52): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,151): canReceive_wouldBeLast
+
+  counter_bus #(`Keccak_BlockCounterSize) numOutBlocks (
+                                                     |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,1034|53): 2 output ports were not connected:
+xmelab: (../rtl/core/lib.v,151): canReceive_wouldBeLast
+xmelab: (../rtl/core/lib.v,152): canReceive_isLast
+
+  counter_bus_fixed #(`SHAKE256_R64) c256 (
+                                        |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,386|40): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  counter_bus_fixed #(`SHAKE128_R64 - `SHAKE256_R64) cDiff (
+                                                         |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,400|57): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  counter_bus_fixed #(`SHAKE256_R64) c256 (
+                                        |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,548|40): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  counter_bus_fixed #(`SHAKE128_R64 - `SHAKE256_R64) cDiff (
+                                                         |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,563|57): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  counter_bus_fixed #(`SHAKESTATE_R64 - `SHAKE128_R64) cStateDiff (
+                                                                |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,579|64): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  serdes #(1600/64) state (
+                        |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,869|24): 2 output ports were not connected:
+xmelab: (../rtl/core/lib.v,269): des_isLast
+xmelab: (../rtl/core/lib.v,274): ser_isLast
+
+  counter_bus_fixed #(N) counter (
+                               |
+xmelab: *W,CUVWSP (../rtl/core/lib.v,288|31): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+
+  serdes #(`SHAKE128_R64) buff (
+                             |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,888|29): 2 output ports were not connected:
+xmelab: (../rtl/core/lib.v,269): des_isLast
+xmelab: (../rtl/core/lib.v,274): ser_isLast
+
+  counter_bus_fixed #(24) counter (
+                                |
+xmelab: *W,CUVWSP (../rtl/core/keccak.v,231|32): 2 output ports were not connected:
+xmelab: (../rtl/core/lib.v,184): canReceive_wouldBeLast
+xmelab: (../rtl/core/lib.v,185): canReceive_isLast
+
+  counter_bus #(N) actualCounter (
+                               |
+xmelab: *W,CUVWSP (../rtl/core/lib.v,217|31): 2 output ports were not connected:
+xmelab: (../rtl/core/lib.v,148): canRestart
+xmelab: (../rtl/core/lib.v,151): canReceive_wouldBeLast
+
+  counter_bus_state #(.MAX_NUM_STEPS(`MEMANDMUL__CORE__MAX_NUM_STATES)) state__counter (
+                                                                                     |
+xmelab: *W,CUVWSP (../rtl/core/memAndMul.v,384|85): 1 output port was not connected:
+xmelab: (../rtl/core/lib.v,232): canRestart
+
+	Top level design units:
+		$unit_0x0000e816
+		tb_axi_shell
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/5) for the instance(tb_axi_shell.crypto_core.core.keccak.k.block.inConv.padCycle.c256) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/3) for the instance(tb_axi_shell.crypto_core.core.keccak.k.block.inConv.padCycle.cDiff) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/5) for the instance(tb_axi_shell.crypto_core.core.keccak.k.block.outConv.c256) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/3) for the instance(tb_axi_shell.crypto_core.core.keccak.k.block.outConv.cDiff) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/3) for the instance(tb_axi_shell.crypto_core.core.keccak.k.block.outConv.cStateDiff) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/5) for the instance(tb_axi_shell.crypto_core.core.keccak.k.block.state.counter) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/5) for the instance(tb_axi_shell.crypto_core.core.keccak.k.block.buff.counter) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/5) for the instance(tb_axi_shell.crypto_core.core.keccak.k.block.core.counter) .
+    .numSteps(NUM_STEPS),
+                      |
+xmelab: *W,CUVMPW (../rtl/core/lib.v,193|22): port sizes differ in port connection(32/2) for the instance(tb_axi_shell.crypto_core.core.keccak.k_in.seedA.serdes.counter) .
+    .r_bus_cmd(fast_owner ? 0 : mainMemory__r_bus_cmd),
+                          |
+xmelab: *W,CUVMPW (../rtl/core/memAndMul.v,531|26): port sizes differ in port connection(32/11) for the instance(tb_axi_shell.crypto_core.core.memAndMul.core) .
+    .w_bus_cmd(fast_owner ? 0 : mainMemory__w_bus_cmd),
+                          |
+xmelab: *W,CUVMPW (../rtl/core/memAndMul.v,532|26): port sizes differ in port connection(32/11) for the instance(tb_axi_shell.crypto_core.core.memAndMul.core) .
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.delay:v <0x2c0b53a5>
+			streams:   0, words:     0
+		worklib.realligner_core:v <0x0d2ebf69>
+			streams:   7, words:  3506
+		worklib.memAndMul__unpack15:v <0x3b765659>
+			streams:   0, words:     0
+		worklib.memAndMul__unpack16:v <0x7e895d46>
+			streams:   1, words:   935
+		worklib.memAndMul__unpack:v <0x64b0fbed>
+			streams:   4, words:  1943
+		worklib.realligner_core:v <0x4af55546>
+			streams:   7, words:  3599
+		worklib.memAndMul__pack16:v <0x334015a7>
+			streams:   1, words:   935
+		worklib.memAndMul__pack:v <0x033d59e8>
+			streams:   4, words:  2631
+		worklib.memAndMul__outAdapter:v <0x6c32e02b>
+			streams:   6, words:  4639
+		worklib.encode:v <0x65b4a050>
+			streams:   1, words:   868
+		worklib.delay:v <0x0482a64d>
+			streams:   2, words:   507
+		worklib.optionalDelay:v <0x3135c5ec>
+			streams:   1, words:   409
+		worklib.decode:v <0x7e4274ee>
+			streams:   1, words:   960
+		worklib.frodoMulSingle:v <0x519710da>
+			streams:   2, words:   984
+		worklib.stdToCompact_single:v <0x41208db2>
+			streams:   3, words:  1049
+		worklib.stdToCompact:v <0x08f56407>
+			streams:   1, words:   388
+		worklib.bram:v <0x6e1e71b5>
+			streams:  14, words:  8366
+		worklib.mainMem:v <0x7987c39f>
+			streams:   4, words:  1434
+		worklib.memAndMul__indexHandler:v <0x31cd128b>
+			streams:  24, words:  9841
+		worklib.counter_bus_state:v <0x0337062e>
+			streams:   7, words:  1586
+		worklib.delay:v <0x19c597ba>
+			streams:   3, words:  1079
+		worklib.bus_fromstd1:v <0x5be7d841>
+			streams:   2, words:   457
+		worklib.bus_delay_std1:v <0x2069bb80>
+			streams:   2, words:   457
+		worklib.memAndMul_ctrl:v <0x50e1f1a9>
+			streams:   8, words:  2957
+		worklib.memAndMul:v <0x5c9178bb>
+			streams:   1, words:   260
+		worklib.full25_as_commit_adapter:sv <0x0d46c44c>
+			streams:  11, words: 11092
+		worklib.full50_shared_product:sv <0x3df60c58>
+			streams:   3, words:   860
+		worklib.full50_carry16:sv <0x4ef2f9ef>
+			streams:  18, words: 10220
+		worklib.keccak_rc_indexed:sv <0x67f82cbd>
+			streams:   3, words:  9524
+		worklib.gena_shake128_row_init:sv <0x4c4385c4>
+			streams:   1, words:   914
+		worklib.full50_gena_ring12:sv <0x69bafd05>
+			streams:  26, words: 11847
+		worklib.full50_gena16:sv <0x110b615f>
+			streams:  11, words:  3541
+		worklib.full50_gena_matrix16:sv <0x2640cb2d>
+			streams:  10, words:  3859
+		worklib.sampler_single:v <0x4a9d5f9f>
+			streams:   2, words: 10871
+		worklib.sampler:v <0x2e64d34f>
+			streams:   1, words:   882
+		worklib.bus_fromstd1:v <0x1b94c87d>
+			streams:   2, words:   360
+		worklib.bus_delay_std1:v <0x7fd5383c>
+			streams:   2, words:   442
+		worklib.adapted_keccak__out:v <0x5a552a6c>
+			streams:   2, words:   402
+		worklib.delay:v <0x6be3275f>
+			streams:   2, words:   429
+		worklib.counter_bus:v <0x3f4b9984>
+			streams:   6, words:  1450
+		worklib.counter_bus_fixed:v <0x0b1428dd>
+			streams:   1, words:   164
+		worklib.serdes:v <0x1f31c8d7>
+			streams:   2, words:  1037
+		worklib.delay:v <0x5a7d2629>
+			streams:   2, words:   694
+		worklib.bus_delay_std1:v <0x39f3e57f>
+			streams:   0, words:     0
+		worklib.seedAStorage:v <0x51b02828>
+			streams:   0, words:     0
+		worklib.counter_bus:v <0x3b16f527>
+			streams:   6, words:  1480
+		worklib.counter_bus_diff:v <0x461969ca>
+			streams:   0, words:     0
+		worklib.bus_fromstd1:v <0x1d48f1b3>
+			streams:   2, words:   372
+		worklib.delay:v <0x4b76b37a>
+			streams:   2, words:   441
+		worklib.bus_delayFull_std1:v <0x2dd79aed>
+			streams:   4, words:   999
+		worklib.bus_delayFull_fromstd:v <0x78439183>
+			streams:   0, words:     0
+		worklib.adapted_keccak__in:v <0x685e772c>
+			streams:   3, words:  1708
+		worklib.delay:v <0x34125826>
+			streams:   3, words:   872
+		worklib.delay:v <0x557596c8>
+			streams:   3, words:   872
+		worklib.keccak_rc:v <0x3202a1d2>
+			streams:   2, words:  1326
+		worklib.counter_bus_fixed:v <0x2932566b>
+			streams:   1, words:   164
+		worklib.keccak_iter:v <0x560c4bb7>
+			streams:   3, words:  2610
+		worklib.counter_bus_fixed:v <0x277a1e78>
+			streams:   1, words:   164
+		worklib.serdes:v <0x7bfd64df>
+			streams:   2, words:  1281
+		worklib.counter_bus:v <0x4628617a>
+			streams:   5, words:  1161
+		worklib.counter_bus_fixed:v <0x54572c7b>
+			streams:   1, words:   164
+		worklib.serdes:v <0x71b62e3e>
+			streams:   2, words:  1281
+		worklib.keccak_busTwoIn:v <0x195adb97>
+			streams:   1, words:   509
+		worklib.bus_delayFull_std1:v <0x5fc02cb7>
+			streams:   4, words:  1416
+		worklib.keccak_busOutConverter:v <0x471ac3d2>
+			streams:   1, words:   529
+		worklib.counter_bus:v <0x198fcb31>
+			streams:   6, words:  1450
+		worklib.counter_bus_fixed:v <0x12146389>
+			streams:   1, words:   164
+		worklib.counter_bus:v <0x3d1a36b3>
+			streams:   6, words:  1450
+		worklib.counter_bus_fixed:v <0x2bc50d8f>
+			streams:   1, words:   164
+		worklib.keccak_busInConverter_padCycle:v <0x410d0e21>
+			streams:   1, words:   227
+		worklib.keccak_busInConverter_padEndingAndEnd:v <0x04bce110>
+			streams:   1, words:   583
+		worklib.keccak_busInConverter_align:v <0x0897c44d>
+			streams:   5, words:  2092
+		worklib.keccak_busInConverter_addTerminator:v <0x7798958a>
+			streams:   1, words:   310
+		worklib.keccak_busTwoOut:v <0x1063e94e>
+			streams:   1, words:   258
+		worklib.delay:v <0x1f9290ca>
+			streams:   2, words:   684
+		worklib.bus_delayFull_std1:v <0x513e8cd2>
+			streams:   4, words:  2065
+		worklib.keccak_block:v <0x1b5c5f45>
+			streams:   4, words:  1790
+		worklib.delay:v <0x6cb564e9>
+			streams:   2, words:   435
+		worklib.bus_delay_std1:v <0x1f3f9d6e>
+			streams:   2, words:   454
+		worklib.keccak_delayWithShift:v <0x164ccb0d>
+			streams:   1, words:   222
+		worklib.counter_bus:v <0x06594d89>
+			streams:   5, words:  1191
+		worklib.delay:v <0x61c87a7a>
+			streams:   2, words:   441
+		worklib.counter_bus:v <0x7d6b1a40>
+			streams:   6, words:  1486
+		worklib.ff_s_r:v <0x1fe920d1>
+			streams:   0, words:     0
+		worklib.ff_en_next:v <0x4179f3a6>
+			streams:   0, words:     0
+		worklib.keccak_ctrl:v <0x795a224c>
+			streams:  56, words: 15403
+		worklib.keccak:v <0x36340f5b>
+			streams:   4, words:  2020
+		worklib.delay:v <0x2ddc83da>
+			streams:   2, words:   441
+		worklib.bus_delay_std1:v <0x12e117f5>
+			streams:   2, words:   457
+		worklib.adapted_keccak:v <0x4b154687>
+			streams:   2, words:  1090
+		worklib.main_adapter_outer_out:v <0x1745ee68>
+			streams:   2, words:   287
+		worklib.ff_rs_next:v <0x1be48e9a>
+			streams:   0, words:     0
+		worklib.delay:v <0x5e899b8a>
+			streams:   2, words:   441
+		worklib.counter_bus:v <0x59fee7c2>
+			streams:   6, words:  1486
+		worklib.main_adapter_outer_in:v <0x5536d9c1>
+			streams:   3, words:   819
+		worklib.bus_fromstd1:v <0x09a82f05>
+			streams:   2, words:   360
+		worklib.delay:v <0x1810f44e>
+			streams:   2, words:   429
+		worklib.bus_delay_std1:v <0x6de9df44>
+			streams:   2, words:   445
+		worklib.main_core:v <0x0a2e9fb6>
+			streams:  17, words:  5740
+		worklib.command_expansion:v <0x171fb655>
+			streams:   6, words:  8574
+		worklib.delay:v <0x29b48ba5>
+			streams:   2, words:   441
+		worklib.bus_delay_unstd1:v <0x4a5308e7>
+			streams:   2, words:   457
+		worklib.delay:v <0x3ced6814>
+			streams:   2, words:   441
+		worklib.counter_bus_state:v <0x58a50805>
+			streams:   6, words:  1379
+		worklib.delay:v <0x7ebac4ee>
+			streams:   2, words:   429
+		worklib.command_sequences:v <0x019fa2a3>
+			streams:   4, words: 150209
+		worklib.ff_en_imm:v <0x75774202>
+			streams:   1, words:   248
+		worklib.delay:v <0x223d9234>
+			streams:   2, words:   441
+		worklib.command_flattener:v <0x5a924435>
+			streams:   5, words:  4202
+		worklib.bus_delay_unstd:v <0x4f9aa5d0>
+			streams:   2, words:   309
+		worklib.delay:v <0x27f7deff>
+			streams:   2, words:   429
+		worklib.counter_bus_state:v <0x18ed7355>
+			streams:   6, words:  1351
+		worklib.command_main:v <0x0008b769>
+			streams:   3, words:  4260
+		worklib.ff_en_imm:v <0x5646b628>
+			streams:   0, words:     0
+		worklib.ff_sr_next:v <0x4ab0afcf>
+			streams:   0, words:     0
+		worklib.delay:v <0x3e090b76>
+			streams:   2, words:   492
+		worklib.ff_en_imm:v <0x1f9d3262>
+			streams:   1, words:   323
+		worklib.delay:v <0x7d2dbdc7>
+			streams:   2, words:   616
+		worklib.bus_delay_std1:v <0x705be555>
+			streams:   2, words:   768
+		worklib.delay:v <0x18b63f0f>
+			streams:   2, words:   429
+		worklib.bus_delay_std1:v <0x167f008d>
+			streams:   2, words:   442
+		worklib.delay:v <0x7eec65d9>
+			streams:   2, words:   450
+		worklib.main:v <0x28f6a2fa>
+			streams:  13, words:  4108
+		worklib.frodokem_axi_checks:sv <0x19195382>
+			streams:  15, words: 13259
+		worklib.frodokem_axil_regs:sv <0x0ed86b9d>
+			streams:  56, words: 29267
+		worklib.frodokem_word_fifo:sv <0x312cde17>
+			streams:   8, words:  3267
+		worklib.frodokem_word_fifo:sv <0x3dc37fbc>
+			streams:   8, words:  2958
+		worklib.tb_axi_shell:sv <0x1b65604b>
+			streams:  77, words: 364521
+		worklib.bus_delay_std:v <0x7a2d455c>
+			streams:   4, words:   864
+		worklib.bus_delay_std:v <0x58f68169>
+			streams:   4, words:  1121
+		worklib.bus_delay_unstd:v <0x61804080>
+			streams:   4, words:   974
+		worklib.bus_delay_std:v <0x1172d770>
+			streams:   4, words:   868
+		worklib.busSwitch:v <0x40466e00>
+			streams:  12, words:  3676
+		worklib.bus_delay_std:v <0x02963140>
+			streams:   4, words:   889
+		worklib.keccak_planToFree:v <0x1bb72ab7>
+			streams:   2, words:   498
+		worklib.bus_delay_std:v <0x42ac5336>
+			streams:   4, words:   930
+		worklib.bus_delayFull_std:v <0x5b1f057f>
+			streams:   4, words:  1972
+		worklib.bus_delayFull_std:v <0x1687faa2>
+			streams:   4, words:  1121
+		worklib.keccak_theta:v <0x55054381>
+			streams:   2, words:  1250
+		worklib.keccak_chi:v <0x65f9d571>
+			streams:   1, words:   655
+		worklib.bus_delayFull_std:v <0x79c4de30>
+			streams:   4, words:   881
+		worklib.bus_delay_std:v <0x72414ea8>
+			streams:   4, words:   647
+		worklib.bus_delay_std:v <0x311f1a76>
+			streams:   4, words:   851
+		worklib.full50_ring4_permute:sv <0x53dfa137>
+			streams:  26, words: 29621
+		worklib.full50_rate_bram:sv <0x26e77f71>
+			streams:   8, words:  3969
+		worklib.full50_matrix16:sv <0x2025472f>
+			streams:  46, words: 27494
+		worklib.full25_keygen_memory_path:sv <0x5c6d122f>
+			streams:  34, words: 20285
+		worklib.bus_delay_std:v <0x1193bafd>
+			streams:   4, words:   883
+		worklib.bram8:v <0x5c0fd057>
+			streams:   7, words:  2844
+		worklib.mainMem_readConnector:v <0x1b521c1f>
+			streams:  35, words: 30516
+		worklib.mem_elementIndexToByteEnable:v <0x0cc9f95d>
+			streams:   1, words:   213
+		worklib.mem_byteIndexToByteEnable:v <0x23e99461>
+			streams:   1, words:   211
+		worklib.mainMem_writeConnector:v <0x5e50de40>
+			streams:  27, words: 51965
+		worklib.frodoMul:v <0x594acd18>
+			streams:  10, words:  5308
+		worklib.memAndMul__core:v <0x7bd5e556>
+			streams:  71, words: 51376
+		worklib.swapBits:v <0x4e63ac76>
+			streams:   0, words:     0
+		worklib.swapBits:v <0x110ebcc1>
+			streams:   0, words:     0
+		worklib.swapBits:v <0x32a5cf3a>
+			streams:   0, words:     0
+		worklib.keccak_rho:v <0x610b1db1>
+			streams:  25, words:  5150
+		worklib.keccak_pi:v <0x32986654>
+			streams:   0, words:     0
+		worklib.keccak_chi:v <0x6583ecee>
+			streams:   1, words:   726
+		worklib.keccak_iota:v <0x3f8c7953>
+			streams:   3, words:   974
+		worklib.full50_keccak_round:sv <0x78f44223>
+			streams:  17, words:  5883
+		worklib.frodokem_axi_shell:sv <0x44a1218b>
+			streams:  46, words: 20157
+		worklib.\$unit_0x0000e816 :compilation_unit <0x3fcb94a8>
+			streams:   0, words:     0
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                    Instances  Unique
+		Modules:                  657     103
+		Resolved nets:              8      10
+		Registers:              1,063     323
+		Scalar wires:          45,290       -
+		Expanded wires:        17,014     864
+		Vectored wires:         3,222       -
+		Named events:               3       3
+		Always blocks:            549      51
+		Initial blocks:            40      38
+		Parallel blocks:            2       2
+		Cont. assignments:     29,810   2,383
+		Pseudo assignments:       314       -
+		Assertions:                15       6
+		Compilation units:          1       1
+		Process Clocks:           522       3
+		Simulation timescale:     1ps
+	Writing initial simulation snapshot: worklib.packaged_kat:sv
+TOOL:	xrun(64)	25.03-s001: Exiting on Oct 06, 2026 at 07:43:46 EDT  (total: 00:00:06)
+TOOL:	xrun(64)	25.03-s001: Started on Oct 06, 2026 at 07:43:46 EDT
+xrun(64): 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+Loading snapshot worklib.packaged_kat:sv .................... Done
+xcelium> source /home/tuan/tools/cadence/XCELIUM2503/tools/xcelium/files/xmsimrc
+xcelium> run
+AXI_VECTOR_EXPORT_PASS
+Simulation complete via $finish(1) at time 1 NS + 0
+../tb/tb_axi_shell.sv:377       #1; export_vectors(); $finish;
+xcelium> exit
+TOOL:	xrun(64)	25.03-s001: Exiting on Oct 06, 2026 at 07:43:47 EDT  (total: 00:00:01)
+TOOL:	xrun(64)	25.03-s001: Started on Oct 06, 2026 at 07:43:47 EDT
+xrun(64): 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+Loading snapshot worklib.packaged_kat:sv .................... Done
+xcelium> source /home/tuan/tools/cadence/XCELIUM2503/tools/xcelium/files/xmsimrc
+xcelium> run
+AXI_START_WRITE_DONE t=2272000
+AXI_RX_VALID t=2376000
+AXI_RX_STATUS t=6560000 status=00000010
+AXI_JOB_PASS op=0 words=2486
+AXI_REAL_KAT_PASS op=0 words=2486
+Simulation complete via $finish(1) at time 684912 NS + 0
+../tb/tb_axi_shell.sv:389     $finish;
+xcelium> exit
+TOOL:	xrun(64)	25.03-s001: Exiting on Oct 06, 2026 at 07:44:04 EDT  (total: 00:00:17)
+TOOL:	xrun(64)	25.03-s001: Started on Oct 06, 2026 at 07:44:04 EDT
+xrun(64): 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+Loading snapshot worklib.packaged_kat:sv .................... Done
+xcelium> source /home/tuan/tools/cadence/XCELIUM2503/tools/xcelium/files/xmsimrc
+xcelium> run
+AXI_START_WRITE_DONE t=2272000
+AXI_RX_VALID t=741624000
+AXI_RX_STATUS t=745808000 status=00000010
+AXI_JOB_PASS op=1 words=1221
+AXI_REAL_KAT_PASS op=1 words=1221
+Simulation complete via $finish(1) at time 787856 NS + 0
+../tb/tb_axi_shell.sv:389     $finish;
+xcelium> exit
+TOOL:	xrun(64)	25.03-s001: Exiting on Oct 06, 2026 at 07:44:22 EDT  (total: 00:00:18)
+TOOL:	xrun(64)	25.03-s001: Started on Oct 06, 2026 at 07:44:22 EDT
+xrun(64): 25.03-s001: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+Loading snapshot worklib.packaged_kat:sv .................... Done
+xcelium> source /home/tuan/tools/cadence/XCELIUM2503/tools/xcelium/files/xmsimrc
+xcelium> run
+AXI_START_WRITE_DONE t=2272000
+AXI_RX_VALID t=873336000
+AXI_RX_STATUS t=877520000 status=00000010
+AXI_JOB_PASS op=2 words=2
+AXI_REAL_KAT_PASS op=2 words=2
+Simulation complete via $finish(1) at time 878304 NS + 0
+../tb/tb_axi_shell.sv:389     $finish;
+xcelium> exit
+TOOL:	xrun(64)	25.03-s001: Exiting on Oct 06, 2026 at 07:44:40 EDT  (total: 00:00:18)
+PACKAGED_CADENCE_ALL_KATS_PASS output=/home/tuan/frodokem-pio-20261006.CSrsUv/cadence-kat.H4JvzR

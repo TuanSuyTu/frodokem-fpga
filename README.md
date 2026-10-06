@@ -18,6 +18,23 @@ cryptographic implementation or a board-validation claim.
 
 ## Linux/PetaLinux, without Vitis
 
+The requested board bring-up transport is now AXI-Lite PIO: no AXI DMA and
+no reserved physical DDR. Build its software with:
+
+```sh
+cd sw
+gcc -std=c11 -O2 -Wall -Wextra frodokem_pio.c frodokem_pio_driver.c -o frodokem_pio
+./frodokem_pio --probe
+```
+
+See `docs/AXI_LITE_PIO.md`. It requires the new PIO bitstream; the original
+`board/frodokem_kv260.xsa` is the old DMA platform and cannot run this driver.
+Board execution is not yet validated. PIO software services TX and RX in one
+loop to avoid small-FIFO deadlock. Native energy figures are not PIO wall
+latency or board energy measurements.
+
+### Original DMA transport reference
+
 In `sw`, build directly with:
 
 ```sh
