@@ -1,0 +1,76 @@
+make: Entering directory '/mnt/windows-data/VSCode/Github/Gitpush/frodokem-fpga/sw'
+cc -std=c11 -O2 -Wall -Wextra -Werror frodokem_pio.c frodokem_pio_driver.c -o frodokem_pio
+cc -std=c11 -O2 -Wall -Wextra -Werror -I. ../_agent/tests/test_pio_host.c frodokem_pio_driver.c -o test_pio_host
+cc -std=c11 -O2 -Wall -Wextra -Werror -I. ../_agent/tests/test_random_host.c -o test_random_host
+./test_pio_host
+PIO_DRIVER_HOST_PASS three operations, byte order, TLAST, duplex service, old-ID and busy rejection
+./test_random_host ../vectors/random_1000.bin
+RANDOM_FORMAT_AND_KAT_PACKING_PASS
+============================================================
+HOST MOCK ONLY | runner verification, NOT FPGA results
+Independent random cases: 1000 | Planned operations: 3000
+Oracle: official software reference, gated against LightSec KAT
+PL clock assumed: 50.024473 MHz (not a runtime measurement)
+MMIO profiling: OFF: low-overhead wall/cycle measurement
+Job cycles include PIO stalls; pure compute time is NOT measured.
+============================================================
+
+LAST 10 ATTEMPTED CASES | time per operation in ms
+0991 | KeyGen PASS      0.007 | Encaps PASS      0.007 | Decaps PASS      0.005
+0992 | KeyGen PASS      0.008 | Encaps PASS      0.004 | Decaps PASS      0.006
+0993 | KeyGen PASS      0.009 | Encaps PASS      0.006 | Decaps PASS      0.004
+0994 | KeyGen PASS      0.011 | Encaps PASS      0.004 | Decaps PASS      0.003
+0995 | KeyGen PASS      0.008 | Encaps PASS      0.005 | Decaps PASS      0.003
+0996 | KeyGen PASS      0.004 | Encaps PASS      0.009 | Decaps PASS      0.004
+0997 | KeyGen PASS      0.011 | Encaps PASS      0.005 | Decaps PASS      0.003
+0998 | KeyGen PASS      0.005 | Encaps PASS      0.005 | Decaps PASS      0.004
+0999 | KeyGen PASS      0.007 | Encaps PASS      0.008 | Decaps PASS      0.004
+1000 | KeyGen PASS      0.012 | Encaps PASS      0.004 | Decaps PASS      0.003
+
+OPERATION SUMMARY | successful operations only | mean/min/max wall ms | mean job cycles | estimated job ms
+KeyGen  PASS=1000 FAIL=0 NOT_RUN=0 wall=0.004/0.001/0.017 cycles=100.0 job_ms_est=0.002
+Encaps  PASS=1000 FAIL=0 NOT_RUN=0 wall=0.003/0.002/0.021 cycles=101.0 job_ms_est=0.002
+Decaps  PASS=1000 FAIL=0 NOT_RUN=0 wall=0.004/0.002/0.032 cycles=102.0 job_ms_est=0.002
+
+CASES: planned=1000 attempted=1000 PASS=1000 FAIL=0 NOT_RUN=0
+OPERATIONS: PASS=3000 FAIL=0 NOT_RUN=0
+TOTAL REGRESSION WALL: 0.032 s (excludes dataset validation and report printing)
+TX/RX service overlaps job execution: do NOT add TX + RX + job time.
+No pure-compute, link-only transfer time or board energy claim.
+HOST_MOCK_REGRESSION_PASS
+============================================================
+HOST MOCK ONLY | runner verification, NOT FPGA results
+Independent random cases: 1000 | Planned operations: 3000
+Oracle: official software reference, gated against LightSec KAT
+PL clock assumed: 50.024473 MHz (not a runtime measurement)
+MMIO profiling: OFF: low-overhead wall/cycle measurement
+Job cycles include PIO stalls; pure compute time is NOT measured.
+============================================================
+RANDOM_FAIL case=999 op=Encaps rc=0 byte=0 got=f7 expected=f6
+Stop: no automatic replay.
+
+LAST 10 ATTEMPTED CASES | time per operation in ms
+0990 | KeyGen PASS      0.007 | Encaps PASS      0.003 | Decaps PASS      0.003
+0991 | KeyGen PASS      0.003 | Encaps PASS      0.003 | Decaps PASS      0.003
+0992 | KeyGen PASS      0.003 | Encaps PASS      0.003 | Decaps PASS      0.004
+0993 | KeyGen PASS      0.003 | Encaps PASS      0.003 | Decaps PASS      0.003
+0994 | KeyGen PASS      0.003 | Encaps PASS      0.003 | Decaps PASS      0.003
+0995 | KeyGen PASS      0.003 | Encaps PASS      0.003 | Decaps PASS      0.003
+0996 | KeyGen PASS      0.003 | Encaps PASS      0.003 | Decaps PASS      0.003
+0997 | KeyGen PASS      0.003 | Encaps PASS      0.003 | Decaps PASS      0.003
+0998 | KeyGen PASS      0.004 | Encaps PASS      0.003 | Decaps PASS      0.003
+0999 | KeyGen PASS      0.003 | Encaps FAIL      0.003 | Decaps NOT_RUN   0.000
+
+OPERATION SUMMARY | successful operations only | mean/min/max wall ms | mean job cycles | estimated job ms
+KeyGen  PASS=999 FAIL=0 NOT_RUN=1 wall=0.004/0.001/0.019 cycles=100.0 job_ms_est=0.002
+Encaps  PASS=998 FAIL=1 NOT_RUN=1 wall=0.004/0.002/0.027 cycles=101.0 job_ms_est=0.002
+Decaps  PASS=998 FAIL=0 NOT_RUN=2 wall=0.004/0.002/0.021 cycles=102.0 job_ms_est=0.002
+
+CASES: planned=1000 attempted=999 PASS=998 FAIL=1 NOT_RUN=1
+OPERATIONS: PASS=2995 FAIL=1 NOT_RUN=4
+TOTAL REGRESSION WALL: 0.033 s (excludes dataset validation and report printing)
+TX/RX service overlaps job execution: do NOT add TX + RX + job time.
+No pure-compute, link-only transfer time or board energy claim.
+HOST_MOCK_REGRESSION_FAIL
+HOST_RANDOM_RUNNER_PASS success=3000 fail_fast=verified (NO BOARD TEST)
+make: Leaving directory '/mnt/windows-data/VSCode/Github/Gitpush/frodokem-fpga/sw'

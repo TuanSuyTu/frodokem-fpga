@@ -1,0 +1,68 @@
+RANDOM_FORMAT_AND_KAT_PACKING_PASS
+============================================================
+HOST MOCK ONLY | runner verification, NOT FPGA results
+Independent random cases: 1000 | Planned operations: 3000
+Oracle: official software reference, gated against LightSec KAT
+PL clock assumed: 50.024473 MHz (not a runtime measurement)
+MMIO profiling: OFF: low-overhead wall/cycle measurement
+Job cycles include PIO stalls; pure compute time is NOT measured.
+============================================================
+
+LAST 10 ATTEMPTED CASES | time per operation in ms
+0991 | KeyGen PASS      0.009 | Encaps PASS      0.011 | Decaps PASS      0.005
+0992 | KeyGen PASS      0.004 | Encaps PASS      0.004 | Decaps PASS      0.009
+0993 | KeyGen PASS      0.004 | Encaps PASS      0.004 | Decaps PASS      0.005
+0994 | KeyGen PASS      0.004 | Encaps PASS      0.005 | Decaps PASS      0.006
+0995 | KeyGen PASS      0.003 | Encaps PASS      0.004 | Decaps PASS      0.005
+0996 | KeyGen PASS      0.003 | Encaps PASS      0.004 | Decaps PASS      0.005
+0997 | KeyGen PASS      0.004 | Encaps PASS      0.005 | Decaps PASS      0.005
+0998 | KeyGen PASS      0.004 | Encaps PASS      0.004 | Decaps PASS      0.006
+0999 | KeyGen PASS      0.004 | Encaps PASS      0.004 | Decaps PASS      0.013
+1000 | KeyGen PASS      0.009 | Encaps PASS      0.004 | Decaps PASS      0.006
+
+OPERATION SUMMARY | successful operations only | mean/min/max wall ms | mean job cycles | estimated job ms
+KeyGen  PASS=1000 FAIL=0 NOT_RUN=0 wall=0.005/0.002/0.175 cycles=100.0 job_ms_est=0.002
+Encaps  PASS=1000 FAIL=0 NOT_RUN=0 wall=0.005/0.003/0.064 cycles=101.0 job_ms_est=0.002
+Decaps  PASS=1000 FAIL=0 NOT_RUN=0 wall=0.008/0.004/0.082 cycles=102.0 job_ms_est=0.002
+
+CASES: planned=1000 attempted=1000 PASS=1000 FAIL=0 NOT_RUN=0
+OPERATIONS: PASS=3000 FAIL=0 NOT_RUN=0
+TOTAL REGRESSION WALL: 0.097 s (excludes dataset validation and report printing)
+TX/RX service overlaps job execution: do NOT add TX + RX + job time.
+No pure-compute, link-only transfer time or board energy claim.
+HOST_MOCK_REGRESSION_PASS
+============================================================
+HOST MOCK ONLY | runner verification, NOT FPGA results
+Independent random cases: 1000 | Planned operations: 3000
+Oracle: official software reference, gated against LightSec KAT
+PL clock assumed: 50.024473 MHz (not a runtime measurement)
+MMIO profiling: OFF: low-overhead wall/cycle measurement
+Job cycles include PIO stalls; pure compute time is NOT measured.
+============================================================
+RANDOM_FAIL case=999 op=Encaps rc=0 byte=0 got=f7 expected=f6
+Stop: no automatic replay.
+
+LAST 10 ATTEMPTED CASES | time per operation in ms
+0990 | KeyGen PASS      0.004 | Encaps PASS      0.009 | Decaps PASS      0.006
+0991 | KeyGen PASS      0.004 | Encaps PASS      0.004 | Decaps PASS      0.005
+0992 | KeyGen PASS      0.004 | Encaps PASS      0.004 | Decaps PASS      0.014
+0993 | KeyGen PASS      0.009 | Encaps PASS      0.004 | Decaps PASS      0.005
+0994 | KeyGen PASS      0.004 | Encaps PASS      0.004 | Decaps PASS      0.005
+0995 | KeyGen PASS      0.008 | Encaps PASS      0.004 | Decaps PASS      0.005
+0996 | KeyGen PASS      0.004 | Encaps PASS      0.004 | Decaps PASS      0.006
+0997 | KeyGen PASS      0.003 | Encaps PASS      0.004 | Decaps PASS      0.006
+0998 | KeyGen PASS      0.003 | Encaps PASS      0.009 | Decaps PASS      0.006
+0999 | KeyGen PASS      0.003 | Encaps FAIL      0.004 | Decaps NOT_RUN   0.000
+
+OPERATION SUMMARY | successful operations only | mean/min/max wall ms | mean job cycles | estimated job ms
+KeyGen  PASS=999 FAIL=0 NOT_RUN=1 wall=0.005/0.003/0.063 cycles=100.0 job_ms_est=0.002
+Encaps  PASS=998 FAIL=1 NOT_RUN=1 wall=0.005/0.003/0.084 cycles=101.0 job_ms_est=0.002
+Decaps  PASS=998 FAIL=0 NOT_RUN=2 wall=0.007/0.004/0.042 cycles=102.0 job_ms_est=0.002
+
+CASES: planned=1000 attempted=999 PASS=998 FAIL=1 NOT_RUN=1
+OPERATIONS: PASS=2995 FAIL=1 NOT_RUN=4
+TOTAL REGRESSION WALL: 0.097 s (excludes dataset validation and report printing)
+TX/RX service overlaps job execution: do NOT add TX + RX + job time.
+No pure-compute, link-only transfer time or board energy claim.
+HOST_MOCK_REGRESSION_FAIL
+HOST_RANDOM_RUNNER_PASS success=3000 fail_fast=verified (NO BOARD TEST)

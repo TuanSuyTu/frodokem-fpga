@@ -1,0 +1,14 @@
+OFFICIAL_REFERENCE_LIGHTSEC_KAT_PASS all pk/sk/ct/ss wire bytes
+GOLDEN_PROGRESS cases=100/1000
+GOLDEN_PROGRESS cases=200/1000
+GOLDEN_PROGRESS cases=300/1000
+GOLDEN_PROGRESS cases=400/1000
+GOLDEN_PROGRESS cases=500/1000
+GOLDEN_PROGRESS cases=600/1000
+GOLDEN_PROGRESS cases=700/1000
+GOLDEN_PROGRESS cases=800/1000
+GOLDEN_PROGRESS cases=900/1000
+GOLDEN_PROGRESS cases=1000/1000
+RANDOM_GOLDEN_PASS cases=1000 operations=3000 seed=FrodoKEM-test-golden-20261007-v1 ref=e1edeb3af1fae0d5727683bd2f5465280ec2437a
+0b540cb6f22c005caf24a71454f995d245540900ff057f528df4045a757bf8ae  /mnt/windows-data/VSCode/Github/Gitpush/frodokem-fpga/random-build.QTAIN9/random_1000.bin
+GOLDEN_OUTPUT=/mnt/windows-data/VSCode/Github/Gitpush/frodokem-fpga/random-build.QTAIN9

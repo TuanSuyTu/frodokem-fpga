@@ -1,88 +1,75 @@
-# Energy-efficient FrodoKEM FPGA accelerator
+# FrodoKEM FPGA — KV260 PIO deployment
 
-This repository packages the validated ring candidate, LightSec-derived core,
-AXI wrapper, KAT testbench, KV260 hardware platform and Linux UIO driver.
-It contains no obsolete architectural experiments. It is not a production
-cryptographic implementation or a board-validation claim.
+FrodoKEM-640-SHAKE hardware with AXI-Lite PIO. No DMA, reserved DDR, Vitis or
+`/dev/mem` is needed. The board must expose the accelerator through UIO at
+`0xA0000000`. The driver rejects an incompatible FPGA image before writing.
 
-## Layout
+## Files you need
 
-- `rtl/core`: merged include-based LightSec core; preserve `.v` compatibility.
-- `rtl/matrix`: nine SystemVerilog accelerator modules.
-- `rtl/helpers`: three required helpers.
-- `rtl/axi`: AXI-Lite, AXI-Stream and FIFO logic.
-- `tb`, `vectors`: full-operation AXI KAT test and deterministic vectors.
-- `sw`: platform-independent job driver, Linux UIO backend and host tests.
-- `board`: exported XSA containing the routed KV260 bitstream.
-- `docs`: measured native energy results and deployment prerequisites.
+- `board/`: one ready-to-load firmware image, PS input 100 MHz → PL about 50.024 MHz.
+- `sw/`: GCC application, PIO driver and test-data reader.
+- `vectors/random_1000.bin`: 1,000 distinct pseudorandom cases with software golden outputs.
+- `rtl/`: hardware sources and reused LightSec modules.
+- `_agent/`: engineering evidence, build scripts, generator and host/RTL tests.
 
-## Linux/PetaLinux, without Vitis
+The existing image passed all three KAT operations on KV260. The new 1,000-case
+suite is prepared and host-tested; its FPGA result remains pending your board run.
+No RTL or firmware change was made for the random-test driver.
 
-The requested board bring-up transport is now AXI-Lite PIO: no AXI DMA and
-no reserved physical DDR. Build its software with:
+## Build and run on the board
+
+Enter this repository on KV260. If the PIO firmware is already loaded, skip
+the firmware-loading commands. Do not reprogram a shared board without ownership.
+
+```sh
+sudo cp board/frodokem_pio_ps100_pl50.bit.bin /lib/firmware/
+printf '0\n' | sudo tee /sys/class/fpga_manager/fpga0/flags
+printf 'frodokem_pio_ps100_pl50.bit.bin\n' | sudo tee /sys/class/fpga_manager/fpga0/firmware
+cat /sys/class/fpga_manager/fpga0/state
+```
+
+The state should be `operating`. Compile with GCC, then validate the dataset
+without accessing FPGA registers:
 
 ```sh
 cd sw
 gcc -std=c11 -O2 -Wall -Wextra frodokem_pio.c frodokem_pio_driver.c -o frodokem_pio
-./frodokem_pio --probe
+./frodokem_pio --check ../vectors/random_1000.bin
 ```
 
-See `docs/AXI_LITE_PIO.md`. It requires the new PIO bitstream; the original
-`board/frodokem_kv260.xsa` is the old DMA platform and cannot run this driver.
-The routed PIO artifacts are `board/frodokem_pio_kv260.bit` and
-`board/frodokem_pio_kv260.xsa`; see `docs/PIO_VALIDATION.md` for evidence.
-Board execution is not yet validated. PIO software services TX and RX in one
-loop to avoid small-FIFO deadlock. Native energy figures are not PIO wall
-latency or board energy measurements.
-
-### Original DMA transport reference
-
-In `sw`, build directly with:
+Run all 1,000 cases, each containing KeyGen → Encaps → Decaps, and save the report:
 
 ```sh
-gcc -std=c11 -O2 -Wall -Wextra frodokem_petalinux.c FPGA_Driver.c frodokem_driver.c -o frodokem
-./frodokem
+set -o pipefail
+sudo timeout 600s ./frodokem_pio --random ../vectors/random_1000.bin | tee board_random_1000.log
 ```
 
-The default action is sysfs discovery only and does not start DMA. See
-`docs/PETALINUX_DEPLOYMENT.md` for the explicitly confirmed hardware run.
+The final screen includes the last 10 attempted cases, PASS/FAIL/NOT_RUN counts,
+per-operation mean/min/max wall time, mean job cycles and total elapsed time.
+Successful completion ends with `KV260_RANDOM_REGRESSION_PASS`.
+Every output byte is compared to software golden. The run stops at the first
+mismatch or hardware error, with no automatic replay. Public test seeds and
+keys are for testing only, never production.
 
-`sw/FPGA_Driver.c` follows the existing LeNet application's UIO/sysfs/mmap
-approach. It does NOT reuse LeNet's PS ZDMA register map: this hardware uses
-PL AXI DMA at `0xA0010000`, with accelerator control at `0xA0000000`.
-Register offsets in the new driver are BYTES, not LeNet's word indices.
-UIO devices are found by their sysfs names, not assumed device numbers.
+Optional TX/RX CPU service profiling:
 
-Before enabling transfers, the board owner must confirm the device tree,
-exclusive DMA ownership, reserved DDR range and uncached/coherent mapping.
-LeNet's comment describes its DDR mapping as cached; copying that mapping
-without a cache-maintenance mechanism is unsafe. `O_SYNC` and CPU fences do
-not establish DMA coherency. `fpga_open` requires explicit acknowledgment
-of these prerequisites. No guessed DDR address or automatic FPGA programming
-is provided. Do not use `/dev/mem` over ordinary Linux RAM.
+```sh
+sudo timeout 600s ./frodokem_pio --random ../vectors/random_1000.bin --profile-io | tee board_random_profile.log
+```
 
-Hardware board clock is 52.631054 MHz. Native energy comparisons were measured
-at approximately 55 MHz and must not be presented as board measurements.
-After a timeout, quiesce DMA before unmapping/reusing buffers; never replay a
-cryptographic job automatically.
+Profiling adds timer overhead. TX/RX service overlaps FPGA execution, so do not
+add TX + RX + job time. Job cycles include PIO stalls, not pure arithmetic time.
+`job_ms_est` assumes PL clock 50,024,473 Hz; override with `--clock-hz HZ` if
+independently measured. This driver does not measure board power or energy.
 
-## Host checks
+Other commands: `--probe` reads UIO sysfs only; `--run` executes the original KAT.
 
-Run `make -C sw test`. These checks do not establish board or DMA correctness.
-Run `bash scripts/test_rtl.sh` with Cadence/Xcelium in a writable VM-local copy.
-Set `XCELIUM_BIN` and `CDS_LIC_FILE` if installation paths differ. The runner checks
-that C driver vectors exactly match the testbench's exported vectors.
-Icarus cannot compile the concurrent SVA/bind checker and its scanner fails
-on this vector file; it is not a supported simulator for this packaged test.
-XSim is prohibited by the project owner; no automatic fallback is allowed.
-RTL source compilation must use include directories `rtl/core` and `vectors`,
-define `REAL_CORE` and `FULL50_DISABLE_OLD_TRACE`, compile `.sv` modules and
-`tb/tb_axi_shell.sv`; do NOT compile all core `.v` files separately because
-`main.v` owns the include chain. Run the test with `+OP=0`, `+OP=1`, `+OP=2`.
+## Reference and development
 
-## Provenance
+Golden outputs come from the [official Microsoft reference](https://github.com/microsoft/PQCrypto-LWEKE),
+revision `e1edeb3af1fae0d5727683bd2f5465280ec2437a`, verified against all existing
+LightSec KAT output bytes. Dataset size: 29,852,128 bytes, about 28.5 MiB.
+The board does not need to compile or execute that reference.
 
-LightSec baseline commit: `50c8fceae60ab4eb12399396fee7242b2ff72598`.
-Packaged sources originate from the audited ring AXI KAT bundle and current
-KV260 platform export. See `SOURCE_SHA256.txt` for frozen package hashes.
-Retain upstream license notices. No remote push is authorized.
+Run `make -C sw test` for host tests. These are not board verification.
+See [_agent/README.md](_agent/README.md) for reproducibility and build details.

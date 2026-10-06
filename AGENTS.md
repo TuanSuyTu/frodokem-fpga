@@ -6,5 +6,7 @@
 - README files must be in English. Commit locally; never push without approval.
 - Host tests are not board validation. PIO uses accelerator UIO only and must
   reject the old DMA bitstream ID. Never substitute /dev/mem or reserved DDR.
-- The retained DMA transport requires reserved DDR, cache coherency and
-  exclusive AXI DMA ownership before hardware transfers.
+- Deployment uses AXI-Lite PIO only. Obsolete DMA transport is archived outside
+  this repository. Engineering scripts, evidence and tests live in _agent/.
+- Never label host mock results as FPGA random-test results. Job cycles include
+  PIO stalls; MMIO service timers overlap job execution and affect performance.
