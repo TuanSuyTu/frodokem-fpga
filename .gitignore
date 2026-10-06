@@ -5,3 +5,4 @@ xsim.dir/
 xcelium.d/
 *.jou
 *.log
+cadence-kat.*/

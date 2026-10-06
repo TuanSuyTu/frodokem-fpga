@@ -40,11 +40,12 @@ cryptographic job automatically.
 ## Host checks
 
 Run `make -C sw test`. These checks do not establish board or DMA correctness.
-Run `bash scripts/test_rtl.sh` with Vivado 2022.2 for the packaged KAT checks.
-Set `VIVADO_SETTINGS` if the installation path differs. The runner also checks
+Run `bash scripts/test_rtl.sh` with Cadence/Xcelium in a writable VM-local copy.
+Set `XCELIUM_BIN` and `CDS_LIC_FILE` if installation paths differ. The runner checks
 that C driver vectors exactly match the testbench's exported vectors.
 Icarus cannot compile the concurrent SVA/bind checker and its scanner fails
 on this vector file; it is not a supported simulator for this packaged test.
+XSim is prohibited by the project owner; no automatic fallback is allowed.
 RTL source compilation must use include directories `rtl/core` and `vectors`,
 define `REAL_CORE` and `FULL50_DISABLE_OLD_TRACE`, compile `.sv` modules and
 `tb/tb_axi_shell.sv`; do NOT compile all core `.v` files separately because
