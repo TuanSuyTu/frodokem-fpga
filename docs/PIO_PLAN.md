@@ -58,3 +58,9 @@ PIO_BUILD_FAILURE.txt preserves the original failure. The existing project
 is reused; the failed accelerator and dependent top runs are reset, not the
 entire platform recreated. Setup/hold and bitstream gates remain unchanged.
 The generated platform clock is 52,631,054 Hz, not the requested 55 MHz.
+
+The first resume stopped before synthesis because its guard compared REF_NAME
+to the underlying HDL module name. The BD stores the module reference VLNV as
+xilinx.com:module_ref:frodokem_pio_bd_bridge:1.0. The guard now uses VLNV, as
+the installed Vivado IP Integrator scripts do. This was a script guard failure,
+not another RTL/functional failure; no long synthesis or P&R was performed.

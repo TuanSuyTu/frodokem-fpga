@@ -10,8 +10,10 @@ if {[info exists ::env(FK_PIO_RESUME_PROJECT)]} {
     if {[get_property TOP [current_fileset]] ne "system_wrapper"} {error "PIO_RESUME_WRONG_TOP"}
     if {[llength [get_files *frodokem_pio_top.sv]]!=1} {error "PIO_RESUME_WRONG_SOURCES"}
     open_bd_design [get_files system.bd]
-    if {[get_property REF_NAME [get_bd_cells accelerator]] ne "frodokem_pio_bd_bridge"} {
-        error "PIO_RESUME_WRONG_ACCELERATOR"
+    set accelerator_vlnv [get_property VLNV [get_bd_cells accelerator]]
+    puts "PIO_RESUME_ACCELERATOR_VLNV=$accelerator_vlnv"
+    if {$accelerator_vlnv ne "xilinx.com:module_ref:frodokem_pio_bd_bridge:1.0"} {
+        error "PIO_RESUME_WRONG_ACCELERATOR_$accelerator_vlnv"
     }
     reset_runs system_accelerator_0_synth_1
     reset_runs synth_1
